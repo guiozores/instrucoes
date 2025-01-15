@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <title>Documento Impecável de Git</title>
+  <title>Como utilizar Git e Github - Um guia prático e completo</title>
 
   <style>
     /* ======= LAYOUT GERAL (SEU CÓDIGO ORIGINAL) ======= */
@@ -75,9 +75,10 @@
     h1 {
       text-align: center;
     }
-        /* Paragrafo */
-        p {
-        text-align: justify;
+
+    /* Parágrafos */
+    p {
+      text-align: justify;
     }
 
     /* Notas e Blocos de Observação */
@@ -99,38 +100,6 @@
       font-weight: bold;
       margin: 10px 0 5px 0;
       color: #333;
-    }
-
-    /* Caixa do Comando (cinza) */
-    .comando {
-      background: #f4f4f4;
-      padding: 10px 15px;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 25px; 
-    }
-    .comando code {
-      font-family: monospace;
-      font-size: 14px;
-      color: #444;
-    }
-
-    /* Botão de Copiar */
-    .copiar {
-      background: #0066cc;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 10px;
-      font-size: 14px;
-    }
-    .copiar:hover {
-      background: #005bb5;
     }
 
     /* Preformatado e Ul interior */
@@ -158,89 +127,131 @@
 
     /* ======= NOVO: NAVBAR SUPERIOR PARA TELAS MENORES ======= */
     .navbar {
-    display: none;
-    width: 100%;
-    background: linear-gradient(160deg, #2c3e50, #3498db); /* mesmo gradiente */
-    position: fixed;
-    top: 0;
-    left: 0;
-    /* removemos border-bottom: 1px solid #ddd; para seguir estilo do sidebar */
-    z-index: 999;
-    padding: 10px 20px;
-    align-items: center;
-    justify-content: space-between;
+      display: none;
+      width: 100%;
+      background: linear-gradient(160deg, #2c3e50, #3498db);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      padding: 10px 20px;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .navbar .navbar-brand {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff; /* texto branco como no sidebar */
-    text-decoration: none;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff; 
+      text-decoration: none;
     }
 
     .navbar .navbar-toggle {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 25px; 
-    color: #fff; /* ícone hamburguer tbm em branco */
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 25px; 
+      color: #fff; 
     }
 
-    /* Menu suspenso ao abrir */
     .navbar-menu {
-    display: none;
-    flex-direction: column;
-    background: linear-gradient(160deg, #2c3e50, #3498db); /* mesmo gradiente do sidebar */
-    position: absolute;
-    top: 60px; /* abaixo da navbar */
-    left: 0;
-    right: 0;
-    padding: 10px 20px;
-    /* podemos remover o border-bottom e manter tudo no gradiente */
+      display: none;
+      flex-direction: column;
+      background: linear-gradient(160deg, #2c3e50, #3498db);
+      position: absolute;
+      top: 60px; 
+      left: 0;
+      right: 0;
+      padding: 10px 20px;
     }
 
-    /* Links dentro do menu suspenso */
     .navbar-menu a {
-    text-decoration: none;
-    color: #fff;   /* texto branco */
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.2); 
-    /* efeito de “divisor” sutil com alpha */
+      text-decoration: none;
+      color: #fff; 
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
     }
 
-    /* Hover similar ao sidebar */
     .navbar-menu a:hover {
-    background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.2);
     }
 
-    /* Quando aberto */
     .navbar-menu.open {
-    display: flex;
+      display: flex;
     }
 
-    /* ======= MEDIA QUERIES PARA TORNAR O MENU RESPONSIVO ======= */
-    /* DESKTOP (>= 769px): sidebar aparece, navbar some */
+    /* ======= MEDIA QUERIES ======= */
     @media (min-width: 769px) {
       .navbar {
-        display: none; /* Mantém navbar escondido no desktop */
+        display: none; 
+      }
+    }
+    @media (max-width: 768px) {
+      #sidebar {
+        display: none; 
+      }
+      .navbar {
+        display: flex; 
+      }
+      #main-content {
+        margin-left: 0; 
+        font-size: 14px;
       }
     }
 
-    /* TABLET E MOBILE (<= 768px): sidebar some, navbar aparece no topo */
-    @media (max-width: 768px) {
-      #sidebar {
-        display: none; /* Oculta sidebar no mobile */
-      }
-      .navbar {
-        display: flex; /* Exibe navbar */
-      }
-      #main-content {
-        margin-left: 0; /* Conteúdo em tela cheia */
-        font-size: 14px; /* Diminui fonte se quiser */
-      }
+    /* ======= NOVO SNIPPET: substituição do antigo .comando ======= */
+    /* Container geral do snippet */
+    .snippet-container {
+      max-width: 500px;
+      margin: 1em 0;
+      border: 1px solid #e1e4e8;       /* Borda cinza suave */
+      border-radius: 6px;
+      background: #fff;
+      font-family: sans-serif;
+      box-shadow: 0 1px 3px rgba(27,31,35,0.12);
+    }
+    /* Cabeçalho que segura as bolinhas */
+    .snippet-header {
+      display: flex;
+      align-items: center;
+      padding: 0.5em 0.75em;
+      border-bottom: 1px solid #e1e4e8;
+    }
+    /* A classe base das bolinhas */
+    .circle {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      margin-right: 8px; 
+    }
+    /* Cada cor de bolinha */
+    .circle-red {
+      background-color: #ff5f57;
+    }
+    .circle-yellow {
+      background-color: #ffbd2e;
+    }
+    .circle-green {
+      background-color: #28c840;
+    }
+    /* Área de código */
+    .snippet-container pre {
+      margin: 0;
+      padding: 1em;
+      background: #f6f8fa;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      overflow-x: auto;
+    }
+    /* Formato do texto do código */
+    .snippet-container code {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 14px;
+      color: #333;
     }
   </style>
 </head>
@@ -272,7 +283,7 @@
     </div>
   </div>
 
-  <!-- ======= SIDEBAR (Aparece apenas em telas grandes) ======= -->
+  <!-- ======= SIDEBAR ======= -->
   <nav id="sidebar">
     <h2>Sumário</h2>
     <ul>
@@ -297,488 +308,655 @@
     </ul>
   </nav>
 
-    <!-- ======= CONTEÚDO PRINCIPAL ======= -->
-    <div id="main-content">
+  <!-- ======= CONTEÚDO PRINCIPAL ======= -->
+  <div id="main-content">
 
-        <!-- Título Principal -->
-        <h1>Documento Impecável de Git</h1>
-        <p>
-            Este documento serve como um guia completo para quem está iniciando no Git.  
-            Cada comando ou função está descrito fora da área cinza, enquanto a área cinza 
-            contém apenas o comando em si e o botão de “copiar”.  
-            Ao final de algumas seções, listamos as <strong>principais flags</strong> disponíveis
-            para tornar o uso dos comandos ainda mais poderoso.
-        </p>
+    <!-- Título Principal -->
+    <h1>Como utilizar Git e Github - Um guia prático e completo</h1>
+    <p>
+      Este documento serve como um guia completo para quem está iniciando no Git.  
+      Cada comando ou função está descrito fora da área cinza, enquanto a área cinza 
+      contém apenas o comando em si.  
+      Ao final de algumas seções, listamos as <strong>principais flags</strong> disponíveis
+      para tornar o uso dos comandos ainda mais poderoso.
+    </p>
 
-        <!-- ===================== INSTALAÇÃO DO GIT ===================== -->
-        <h2 id="instalacao">1. Instalação do Git</h2>
+    <!-- ===================== INSTALAÇÃO DO GIT ===================== -->
+    <h2 id="instalacao">1. Instalação do Git</h2>
 
-        <h3>Windows</h3>
-        <div class="nota">
-            <p><strong>Opção 1 - Download direto:</strong></p>
-            <ol>
-                <li>Baixar o instalador em: <a href="https://git-scm.com/download/win" target="_blank">git-scm.com/download/win</a></li>
-                <li>Executar o arquivo .exe baixado</li>
-                <li>Manter as opções padrão no instalador (recomendado)</li>
-            </ol>
+    <h3>Windows</h3>
+    <div class="nota">
+      <p><strong>Opção 1 - Download direto:</strong></p>
+      <ol>
+        <li>Baixar o instalador em: <a href="https://git-scm.com/download/win" target="_blank">git-scm.com/download/win</a></li>
+        <li>Executar o arquivo .exe baixado</li>
+        <li>Manter as opções padrão no instalador (recomendado)</li>
+      </ol>
 
-            <p><strong>Opção 2 - Via PowerShell (Administrador):</strong></p>
-            <div class="descricao">Instalar com winget:</div>
-            <p class="explicacao">
-                O winget é um gerenciador de pacotes oficial para Windows. Basta rodar esse comando em um 
-                terminal com privilégios de administrador para instalar o Git.
-            </p>
-            <div class="comando">
-                <code>winget install --id Git.Git -e --source winget</code>
-                <button class="copiar" data-clipboard-text="winget install --id Git.Git -e --source winget">Copiar</button>
-            </div>
-
-            <div class="descricao">OU com Chocolatey:</div>
-            <p class="explicacao">
-                Chocolatey é outro gerenciador de pacotes para Windows. Caso já tenha instalado, você pode 
-                usar este comando para instalar o Git rapidamente.
-            </p>
-            <div class="comando">
-                <code>choco install git -y</code>
-                <button class="copiar" data-clipboard-text="choco install git -y">Copiar</button>
-            </div>
+      <p><strong>Opção 2 - Via PowerShell (Administrador):</strong></p>
+      <div class="descricao">Instalar com winget:</div>
+      <p class="explicacao">
+        O winget é um gerenciador de pacotes oficial para Windows. Basta rodar esse comando em um 
+        terminal com privilégios de administrador para instalar o Git.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>winget install --id Git.Git -e --source winget</code></pre>
+      </div>
 
-        <h3>Linux (Ubuntu 22.04+)</h3>
-        <div class="nota">
-            <div class="descricao">1. Atualizar repositórios:</div>
-            <p class="explicacao">
-                Atualiza a lista de pacotes disponíveis em seu sistema Ubuntu, garantindo a versão mais 
-                recente do Git.
-            </p>
-            <div class="comando">
-                <code>sudo apt update</code>
-                <button class="copiar" data-clipboard-text="sudo apt update">Copiar</button>
-            </div>
-
-            <div class="descricao">2. Instalar dependências:</div>
-            <p class="explicacao">
-                Instala utilitários necessários para gerenciar pacotes e possíveis repositórios. Pode 
-                não ser obrigatório em todas as distros, mas é recomendado.
-            </p>
-            <div class="comando">
-                <code>sudo apt install software-properties-common</code>
-                <button class="copiar" data-clipboard-text="sudo apt install software-properties-common">Copiar</button>
-            </div>
-
-            <div class="descricao">3. Instalar Git:</div>
-            <p class="explicacao">
-                Finalmente, instala o Git confirmando automaticamente com a flag <code>-y</code>. Agora 
-                você já terá o Git configurado no sistema.
-            </p>
-            <div class="comando">
-                <code>sudo apt install git -y</code>
-                <button class="copiar" data-clipboard-text="sudo apt install git -y">Copiar</button>
-            </div>
+      <div class="descricao">OU com Chocolatey:</div>
+      <p class="explicacao">
+        Chocolatey é outro gerenciador de pacotes para Windows. Caso já tenha instalado, você pode 
+        usar este comando para instalar o Git rapidamente.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>choco install git -y</code></pre>
+      </div>
+    </div>
 
-        <h3>Verificação da Instalação</h3>
-        <div class="descricao">Verificar versão do Git:</div>
-        <p class="explicacao">
-            Exibe a versão do Git instalada. Se retornar algo como 
-            <code>git version 2.X.X</code>, significa que a instalação foi bem-sucedida.
-        </p>
-        <div class="comando">
-            <code>git --version</code>
-            <button class="copiar" data-clipboard-text="git --version">Copiar</button>
+    <h3>Linux (Ubuntu 22.04+)</h3>
+    <div class="nota">
+      <div class="descricao">1. Atualizar repositórios:</div>
+      <p class="explicacao">
+        Atualiza a lista de pacotes disponíveis em seu sistema Ubuntu, garantindo a versão mais 
+        recente do Git.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>sudo apt update</code></pre>
+      </div>
 
-        <div class="nota">
-            <p><strong>Links Úteis:</strong></p>
-            <ul>
-                <li>Download Git: <a href="https://git-scm.com/downloads" target="_blank">git-scm.com/downloads</a></li>
-                <li>Documentação: <a href="https://git-scm.com/doc" target="_blank">git-scm.com/doc</a></li>
-                <li>Guia Git: <a href="https://git-scm.com/book/pt-br/v2" target="_blank">git-scm.com/book/pt-br/v2</a></li>
-            </ul>
+      <div class="descricao">2. Instalar dependências:</div>
+      <p class="explicacao">
+        Instala utilitários necessários para gerenciar pacotes e possíveis repositórios. Pode 
+        não ser obrigatório em todas as distros, mas é recomendado.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>sudo apt install software-properties-common</code></pre>
+      </div>
 
-        <!-- ===================== CONFIGURAÇÃO INICIAL ===================== -->
-        <h2 id="config-inicial">2. Configuração Inicial</h2>
-        <div class="descricao">Definir nome de usuário global:</div>
-        <p class="explicacao">
-            Todo commit que você fizer será assinado com este nome, aparecendo no histórico de commits.
-        </p>
-        <div class="comando">
-            <code>git config --global user.name "Seu Nome"</code>
-            <button class="copiar" data-clipboard-text='git config --global user.name "Seu Nome"'>Copiar</button>
+      <div class="descricao">3. Instalar Git:</div>
+      <p class="explicacao">
+        Finalmente, instala o Git confirmando automaticamente com a flag <code>-y</code>. Agora 
+        você já terá o Git configurado no sistema.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>sudo apt install git -y</code></pre>
+      </div>
+    </div>
 
-        <div class="descricao">Definir email global:</div>
-        <p class="explicacao">
-            Assim como o nome, o email aparecerá no histórico de commits para identificar o autor 
-            de cada mudança.
-        </p>
-        <div class="comando">
-            <code>git config --global user.email "seu@email.com"</code>
-            <button class="copiar" data-clipboard-text='git config --global user.email "seu@email.com"'>
-                Copiar
-            </button>
+    <h3>Verificação da Instalação</h3>
+    <div class="descricao">Verificar versão do Git:</div>
+    <p class="explicacao">
+      Exibe a versão do Git instalada. Se retornar algo como 
+      <code>git version 2.X.X</code>, significa que a instalação foi bem-sucedida.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git --version</code></pre>
+    </div>
+
+    <div class="nota">
+      <p><strong>Links Úteis:</strong></p>
+      <ul>
+        <li>Download Git: <a href="https://git-scm.com/downloads" target="_blank">git-scm.com/downloads</a></li>
+        <li>Documentação: <a href="https://git-scm.com/doc" target="_blank">git-scm.com/doc</a></li>
+        <li>Guia Git: <a href="https://git-scm.com/book/pt-br/v2" target="_blank">git-scm.com/book/pt-br/v2</a></li>
+      </ul>
+    </div>
+
+    <!-- ===================== CONFIGURAÇÃO INICIAL ===================== -->
+    <h2 id="config-inicial">2. Configuração Inicial</h2>
+    <div class="descricao">Definir nome de usuário global:</div>
+    <p class="explicacao">
+      Todo commit que você fizer será assinado com este nome, aparecendo no histórico de commits.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git config --global user.name "Seu Nome"</code></pre>
+    </div>
+
+    <div class="descricao">Definir email global:</div>
+    <p class="explicacao">
+      Assim como o nome, o email aparecerá no histórico de commits para identificar o autor 
+      de cada mudança.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git config --global user.email "seu@email.com"</code></pre>
+    </div>
+
+    <!-- ===================== COMANDOS BÁSICOS ===================== -->
+    <h2 id="comandos-basicos">3. Comandos Básicos</h2>
+    <div class="descricao">Criar um novo repositório Git:</div>
+    <p class="explicacao">
+      Inicia o repositório Git no diretório atual. Cria uma pasta oculta <code>.git</code> 
+      onde fica todo o controle de versão.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git init</code></pre>
+    </div>
+
+    <div class="descricao">Verificar o status das alterações:</div>
+    <p class="explicacao">
+      Mostra quais arquivos foram modificados ou adicionados e quais estão prontos para commit. 
+      É um comando muito usado antes de cada commit.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git status</code></pre>
+    </div>
+
+    <!-- ===================== BRANCHES ===================== -->
+    <h2 id="branches">4. Branches</h2>
+    <div class="descricao">Listar todas as branches:</div>
+    <p class="explicacao">
+      Exibe todas as branches (ramificações) disponíveis no repositório local, indicando a 
+      branch atual com um asterisco (*).
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git branch</code></pre>
+    </div>
+
+    <div class="descricao">Criar e mudar para nova branch:</div>
+    <p class="explicacao">
+      Cria uma branch chamada <code>nova-branch</code> e já posiciona o HEAD dentro dela. Útil 
+      para começar a desenvolver uma nova feature separadamente.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout -b nova-branch</code></pre>
+    </div>
+
+    <div class="descricao">Mudar para branch existente:</div>
+    <p class="explicacao">
+      Troca para a branch <code>nome-branch</code> se ela já existir. Ideal para continuar 
+      o desenvolvimento ou revisar código.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout nome-branch</code></pre>
+    </div>
+
+    <!-- ===================== STAGING E COMMIT ===================== -->
+    <h2 id="staging-commit">5. Staging e Commit</h2>
+    <div class="descricao">Adicionar todos os arquivos ao staging:</div>
+    <p class="explicacao">
+      Adiciona todas as alterações (novos arquivos, modificações, deleções) ao “staging area”. 
+      É a etapa antes de criar um commit.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git add .</code></pre>
+    </div>
+
+    <div class="descricao">Criar um commit com mensagem:</div>
+    <p class="explicacao">
+      Registra as mudanças adicionadas no staging. A <em>mensagem</em> deve descrever o que foi feito, 
+      para facilitar o histórico.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git commit -m "mensagem do commit"</code></pre>
+    </div>
+
+    <div class="descricao">Criar commit com “add” automático:</div>
+    <p class="explicacao">
+      Você pode pular o <code>git add</code> usando <code>-a</code> junto com <code>-m</code>. Isso faz
+      com que o Git automaticamente “adicione” (staging) todos os arquivos modificados que já estão sendo
+      rastreados e, em seguida, crie o commit com a mensagem especificada:
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git commit -am "sua mensagem de commit"</code></pre>
+    </div>
+
+    <!-- ===================== FLAGS DO GIT COMMIT ===================== -->
+    <h3>Flags Principais do <code>git commit</code></h3>
+    <div class="nota">
+      <ul>
+        <li><code>-m "mensagem"</code>: Define a mensagem do commit diretamente na linha de comando.</li>
+        <li><code>-a</code>: Adiciona automaticamente arquivos modificados ao commit, sem precisar <code>git add</code>.</li>
+        <li><code>-am</code>: Combina as opções <code>-a</code> e <code>-m</code> numa só.</li>
+        <li><code>--amend</code>: Modifica o último commit (útil para corrigir mensagens ou mudanças esquecidas).</li>
+        <li><code>--no-edit</code>: Usado com <code>--amend</code> para manter a mesma mensagem de commit.</li>
+        <li><code>--allow-empty</code>: Permite criar um commit mesmo que não haja alterações.</li>
+        <li><code>-v</code> ou <code>--verbose</code>: Mostra o diff das alterações que serão commitadas.</li>
+        <li><code>-q</code> ou <code>--quiet</code>: Oculta a maioria das mensagens do commit.</li>
+        <li><code>-S</code> ou <code>--gpg-sign</code>: Assina o commit com GPG.</li>
+      </ul>
+    </div>
+
+    <!-- ===================== CRIAÇÃO DE BRANCHES (DETALHADO) ===================== -->
+    <h2 id="criacao-branches">6. Criação de Branches</h2>
+    <div class="nota">
+      <p><strong>Branches são uma parte fundamental do Git:</strong></p>
+      <p>
+        Elas permitem que você trabalhe em diferentes partes do projeto sem interferir no 
+        código principal. Cada branch é uma linha de desenvolvimento separada, que pode ser 
+        mesclada de volta à <code>main</code> quando estiver pronta.
+      </p>
+    </div>
+    <p class="explicacao">
+      Nesta seção, veremos como listar branches, criar novas, mudar entre elas e excluí-las.
+    </p>
+
+    <div class="descricao">Ver todas as branches existentes:</div>
+    <p class="explicacao">
+      Exibe a lista de branches locais. A branch atual estará em destaque.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git branch</code></pre>
+    </div>
+
+    <div class="descricao">Criar nova branch (sem mudar para ela):</div>
+    <p class="explicacao">
+      Se você não quer “entrar” imediatamente na nova branch, pode criá-la separadamente.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git branch nova-branch</code></pre>
+    </div>
+
+    <div class="descricao">Criar e entrar na nova branch:</div>
+    <p class="explicacao">
+      Faz ao mesmo tempo a criação da branch e a troca para ela. Bem prático.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout -b nova-branch</code></pre>
+    </div>
+
+    <div class="descricao">Mudar para uma branch existente:</div>
+    <p class="explicacao">
+      Volta para uma branch criada anteriormente, caso queira continuar o trabalho ali.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout nome-branch</code></pre>
+    </div>
+
+    <div class="descricao">Deletar uma branch local:</div>
+    <p class="explicacao">
+      Remove a branch localmente. É importante que ela não tenha commits pendentes
+      que não foram mesclados.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git branch -d nome-branch</code></pre>
+    </div>
+
+    <div class="descricao">Deletar uma branch remota:</div>
+    <p class="explicacao">
+      Remove a branch do servidor remoto, limpando branches que não serão mais utilizadas.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git push origin --delete nome-branch</code></pre>
+    </div>
+
+    <!-- ===================== FLUXO DE TRABALHO BÁSICO ===================== -->
+    <h2 id="fluxo-basico">7. Fluxo de Trabalho Básico</h2>
+    <div class="nota">
+      <p><strong>Exemplo de fluxo desde o início:</strong></p>
+      
+      <div class="descricao">1. Criar nova branch a partir da main:</div>
+      <p class="explicacao">
+        É boa prática criar sempre novas branches para features ou correções, evitando 
+        trabalhar diretamente na <code>main</code>.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git checkout -b minha-branch</code></pre>
+      </div>
 
-        <!-- ===================== COMANDOS BÁSICOS ===================== -->
-        <h2 id="comandos-basicos">3. Comandos Básicos</h2>
-        <div class="descricao">Criar um novo repositório Git:</div>
-        <p class="explicacao">
-            Inicia o repositório Git no diretório atual. Cria uma pasta oculta <code>.git</code> 
-            onde fica todo o controle de versão.
-        </p>
-        <div class="comando">
-            <code>git init</code>
-            <button class="copiar" data-clipboard-text="git init">Copiar</button>
+      <div class="descricao">2. Ver status das alterações:</div>
+      <p class="explicacao">
+        Para verificar quais arquivos foram modificados ou adicionados desde o último commit.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git status</code></pre>
+      </div>
 
-        <div class="descricao">Verificar o status das alterações:</div>
-        <p class="explicacao">
-            Mostra quais arquivos foram modificados ou adicionados e quais estão prontos para commit. 
-            É um comando muito usado antes de cada commit.
-        </p>
-        <div class="comando">
-            <code>git status</code>
-            <button class="copiar" data-clipboard-text="git status">Copiar</button>
+      <div class="descricao">3. Adicionar arquivos alterados:</div>
+      <p class="explicacao">
+        Deixa tudo pronto para ser commitado (staged).
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git add .</code></pre>
+      </div>
 
-        <!-- ===================== BRANCHES ===================== -->
-        <h2 id="branches">4. Branches</h2>
-        <div class="descricao">Listar todas as branches:</div>
-        <p class="explicacao">
-            Exibe todas as branches (ramificações) disponíveis no repositório local, indicando a 
-            branch atual com um asterisco (*).
-        </p>
-        <div class="comando">
-            <code>git branch</code>
-            <button class="copiar" data-clipboard-text="git branch">Copiar</button>
+      <div class="descricao">4. Criar commit:</div>
+      <p class="explicacao">
+        Grava o histórico das mudanças localmente, com uma mensagem que descreve o que foi feito.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git commit -m "meu primeiro commit"</code></pre>
+      </div>
 
-        <div class="descricao">Criar e mudar para nova branch:</div>
-        <p class="explicacao">
-            Cria uma branch chamada <code>nova-branch</code> e já posiciona o HEAD dentro dela. Útil 
-            para começar a desenvolver uma nova feature separadamente.
-        </p>
-        <div class="comando">
-            <code>git checkout -b nova-branch</code>
-            <button class="copiar" data-clipboard-text="git checkout -b nova-branch">Copiar</button>
+      <div class="descricao">5. Voltar para main:</div>
+      <p class="explicacao">
+        Normalmente voltamos à <code>main</code> para trazer atualizações ou mesclar a branch.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git checkout main</code></pre>
+      </div>
 
-        <div class="descricao">Mudar para branch existente:</div>
-        <p class="explicacao">
-            Troca para a branch <code>nome-branch</code> se ela já existir. Ideal para continuar 
-            o desenvolvimento ou revisar código.
-        </p>
-        <div class="comando">
-            <code>git checkout nome-branch</code>
-            <button class="copiar" data-clipboard-text="git checkout nome-branch">Copiar</button>
+      <div class="descricao">6. Atualizar main:</div>
+      <p class="explicacao">
+        Caso existam alterações remotas, este comando atualiza a branch local.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git pull</code></pre>
+      </div>
 
-        <!-- ===================== STAGING E COMMIT ===================== -->
-        <h2 id="staging-commit">5. Staging e Commit</h2>
-        <div class="descricao">Adicionar todos os arquivos ao staging:</div>
-        <p class="explicacao">
-            Adiciona todas as alterações (novos arquivos, modificações, deleções) ao “staging area”. 
-            É a etapa antes de criar um commit.
-        </p>
-        <div class="comando">
-            <code>git add .</code>
-            <button class="copiar" data-clipboard-text="git add .">Copiar</button>
+      <div class="descricao">7. Juntar alterações da branch:</div>
+      <p class="explicacao">
+        Mescla as mudanças de <code>minha-branch</code> na <code>main</code>.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git merge minha-branch</code></pre>
+      </div>
 
-        <div class="descricao">Criar um commit com mensagem:</div>
-        <p class="explicacao">
-            Registra as mudanças adicionadas no staging. A <em>mensagem</em> deve descrever o que foi feito, 
-            para facilitar o histórico.
-        </p>
-        <div class="comando">
-            <code>git commit -m "mensagem do commit"</code>
-            <button class="copiar" data-clipboard-text='git commit -m "mensagem do commit"'>Copiar</button>
+      <div class="descricao">8. Enviar para o GitHub:</div>
+      <p class="explicacao">
+        Publica as alterações no repositório remoto, acessível para o restante da equipe.
+      </p>
+      <!-- SUBSTITUIÇÃO DO COMANDO -->
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
-        <div class="descricao">Criar commit com “add” automático:</div>
-<p class="explicacao">
-  Você pode pular o <code>git add</code> usando <code>-a</code> junto com <code>-m</code>. Isso faz
-  com que o Git automaticamente “adicione” (staging) todos os arquivos modificados que já estão sendo
-  rastreados e, em seguida, crie o commit com a mensagem especificada:
-</p>
-<div class="comando">
-  <code>git commit -am "sua mensagem de commit"</code>
-  <button
-    class="copiar"
-    data-clipboard-text='git commit -am "sua mensagem de commit"'
->
-    Copiar
-  </button>
-</div>
+        <pre><code>git push</code></pre>
+      </div>
+    </div>
 
+    <!-- ===================== TRABALHO REMOTO ===================== -->
+    <h2 id="remoto">8. Trabalho Remoto</h2>
+    <div class="descricao">Adicionar um repositório remoto:</div>
+    <p class="explicacao">
+      Associa o seu repositório local a um repositório remoto chamado <code>origin</code>. 
+      Permite enviar e receber alterações via internet.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git remote add origin https://github.com/usuario/repositorio.git</code></pre>
+    </div>
 
-        <!-- ===================== FLAGS DO GIT COMMIT ===================== -->
-        <h3>Flags Principais do <code>git commit</code></h3>
-        <div class="nota">
-            <ul>
-                <li><code>-m "mensagem"</code>: Define a mensagem do commit diretamente na linha de comando.</li>
-                <li><code>-a</code>: Adiciona automaticamente arquivos modificados ao commit, sem precisar <code>git add</code>.</li>
-                <li><code>-am</code>: Combina as opções <code>-a</code> e <code>-m</code> numa só, isto é, adiciona e comita com mensagem.</li>
-                <li><code>--amend</code>: Modifica o último commit (útil para corrigir mensagens ou adicionar mudanças esquecidas).</li>
-                <li><code>--no-edit</code>: Usado com <code>--amend</code> para manter a mesma mensagem de commit.</li>
-                <li><code>--allow-empty</code>: Permite criar um commit mesmo que não haja alterações nos arquivos.</li>
-                <li><code>-v</code> ou <code>--verbose</code>: Mostra o diff das alterações que serão commitadas.</li>
-                <li><code>-q</code> ou <code>--quiet</code>: Oculta a maioria das mensagens do commit.</li>
-                <li><code>-S</code> ou <code>--gpg-sign</code>: Assina o commit com GPG, garantindo autenticidade.</li>
-            </ul>
-        </div>
+    <div class="descricao">Enviar alterações para o repositório remoto:</div>
+    <p class="explicacao">
+      Faz o “upload” das alterações da sua branch local <code>main</code> para o repositório remoto 
+      (nomeado como <code>origin</code>).
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git push origin main</code></pre>
+    </div>
 
-        <!-- ===================== CRIAÇÃO DE BRANCHES (DETALHADO) ===================== -->
-        <h2 id="criacao-branches">6. Criação de Branches</h2>
-        <div class="nota">
-            <p><strong>Branches são uma parte fundamental do Git:</strong></p>
-            <p>
-                Elas permitem que você trabalhe em diferentes partes do projeto sem interferir no 
-                código principal. Cada branch é uma linha de desenvolvimento separada, que pode ser 
-                mesclada de volta à <code>main</code> quando estiver pronta.
-            </p>
-        </div>
-        <p class="explicacao">
-            Nesta seção, veremos como listar branches, criar novas, mudar entre elas e excluí-las.
-        </p>
+    <div class="descricao">Atualizar seu repositório local:</div>
+    <p class="explicacao">
+      Faz o “download” das alterações que possam estar no remoto e mescla com sua <code>main</code> local.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git pull origin main</code></pre>
+    </div>
 
-        <div class="descricao">Ver todas as branches existentes:</div>
-        <p class="explicacao">
-            Exibe a lista de branches locais. A branch atual estará em destaque.
-        </p>
-        <div class="comando">
-            <code>git branch</code>
-            <button class="copiar" data-clipboard-text="git branch">Copiar</button>
-        </div>
+    <!-- ===================== FLAGS DO GIT REMOTE ===================== -->
+    <h3>Flags Principais do <code>git remote</code></h3>
+    <div class="nota">
+      <ul>
+        <li><code>git remote -v</code>: Lista todos os repositórios remotos e suas URLs (fetch e push).</li>
+        <li><code>git remote add &lt;nome&gt; &lt;url&gt;</code>: Cria um repositório remoto localmente (por ex.: origin).</li>
+        <li><code>git remote remove &lt;nome&gt;</code>: Remove o repositório remoto configurado.</li>
+        <li><code>git remote rename &lt;old&gt; &lt;new&gt;</code>: Renomeia o repositório remoto.</li>
+        <li><code>git remote set-url &lt;nome&gt; &lt;url&gt;</code>: Altera a URL de um repositório remoto existente.</li>
+        <li><code>git remote set-head &lt;nome&gt; &lt;branch&gt;</code>: Define qual é a branch principal de um remoto.</li>
+      </ul>
+      <p class="explicacao">
+        Não existem muitas <em>flags</em> específicas em <code>git remote</code>, mas sim 
+        subcomandos (<code>add</code>, <code>remove</code>, <code>rename</code>, etc.).  
+        <code>origin</code> é apenas o nome padrão que damos ao repositório remoto principal.
+      </p>
+    </div>
 
-        <div class="descricao">Criar nova branch (sem mudar para ela):</div>
-        <p class="explicacao">
-            Se você não quer “entrar” imediatamente na nova branch, pode criá-la separadamente.
-        </p>
-        <div class="comando">
-            <code>git branch nova-branch</code>
-            <button class="copiar" data-clipboard-text="git branch nova-branch">Copiar</button>
-        </div>
+    <!-- ===================== TAGS ===================== -->
+    <h2 id="tags">9. Tags</h2>
+    <div class="descricao">Criar uma nova tag:</div>
+    <p class="explicacao">
+      Marca um ponto específico da sua linha do tempo do Git, geralmente usado para marcar 
+      versões de lançamento.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git tag -a v1.0 -m "versão 1.0"</code></pre>
+    </div>
 
-        <div class="descricao">Criar e entrar na nova branch:</div>
-        <p class="explicacao">
-            Faz ao mesmo tempo a criação da branch e a troca para ela. Bem prático.
-        </p>
-        <div class="comando">
-            <code>git checkout -b nova-branch</code>
-            <button class="copiar" data-clipboard-text="git checkout -b nova-branch">Copiar</button>
-        </div>
+    <div class="descricao">Enviar tags para o repositório remoto:</div>
+    <p class="explicacao">
+      Envia todas as tags que você criou localmente para o repositório remoto.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git push origin --tags</code></pre>
+    </div>
 
-        <div class="descricao">Mudar para uma branch existente:</div>
-        <p class="explicacao">
-            Volta para uma branch criada anteriormente, caso queira continuar o trabalho ali.
-        </p>
-        <div class="comando">
-            <code>git checkout nome-branch</code>
-            <button class="copiar" data-clipboard-text="git checkout nome-branch">Copiar</button>
-        </div>
+    <!-- ===================== FLAGS DO GIT TAG ===================== -->
+    <h3>Flags Principais do <code>git tag</code></h3>
+    <div class="nota">
+      <ul>
+        <li><code>-a</code> ou <code>--annotate</code>: Cria uma tag anotada (armazena nome, email, data, mensagem).</li>
+        <li><code>-m "mensagem"</code>: Define a mensagem da tag (tags anotadas).</li>
+        <li><code>-s</code> ou <code>--sign</code>: Assina a tag usando GPG.</li>
+        <li><code>-u &lt;chave&gt;</code> ou <code>--local-user &lt;chave&gt;</code>: Usa uma chave GPG específica.</li>
+        <li><code>-f</code> ou <code>--force</code>: Sobrescreve (força) a criação de uma tag existente.</li>
+        <li><code>-d</code> ou <code>--delete</code>: Deleta uma tag local.</li>
+        <li><code>-l</code> ou <code>--list</code>: Lista todas as tags do repositório.</li>
+        <li><code>-n&lt;num&gt;</code>: Mostra &lt;num&gt; linhas da mensagem de cada tag listada.</li>
+      </ul>
+    </div>
 
-        <div class="descricao">Deletar uma branch local:</div>
-        <p class="explicacao">
-            Remove a branch localmente. É importante que ela não tenha commits pendentes
-            que não foram mesclados.
-        </p>
-        <div class="comando">
-            <code>git branch -d nome-branch</code>
-            <button class="copiar" data-clipboard-text="git branch -d nome-branch">Copiar</button>
-        </div>
+    <!-- ===================== VERSIONAMENTO SEMÂNTICO ===================== -->
+    <h2 id="versionamento">10. Versionamento Semântico</h2>
+    <div class="nota">
+      <p><strong>Estrutura de Versão: MAJOR.MINOR.PATCH</strong></p>
+      <ul>
+        <li><strong>MAJOR (1.0.0)</strong>: Mudanças incompatíveis</li>
+        <li><strong>MINOR (1.1.0)</strong>: Novas funcionalidades compatíveis</li>
+        <li><strong>PATCH (1.0.1)</strong>: Correções de bugs</li>
+      </ul>
+      <p class="explicacao">
+        O versionamento semântico ajuda a entender rapidamente o que mudou em uma nova versão: 
+        se houve grandes quebras de compatibilidade ou apenas melhorias pontuais.
+      </p>
+    </div>
 
-        <div class="descricao">Deletar uma branch remota:</div>
-        <p class="explicacao">
-            Remove a branch do servidor remoto, limpando branches que não serão mais utilizadas.
-        </p>
-        <div class="comando">
-            <code>git push origin --delete nome-branch</code>
-            <button class="copiar" data-clipboard-text="git push origin --delete nome-branch">Copiar</button>
-        </div>
-
-
-        <!-- ===================== FLUXO DE TRABALHO BÁSICO ===================== -->
-        <h2 id="fluxo-basico">7. Fluxo de Trabalho Básico</h2>
-        <div class="nota">
-            <p><strong>Exemplo de fluxo desde o início:</strong></p>
-            
-            <div class="descricao">1. Criar nova branch a partir da main:</div>
-            <p class="explicacao">
-                É boa prática criar sempre novas branches para features ou correções, evitando 
-                trabalhar diretamente na <code>main</code>.
-            </p>
-            <div class="comando">
-                <code>git checkout -b minha-branch</code>
-                <button class="copiar" data-clipboard-text="git checkout -b minha-branch">Copiar</button>
-            </div>
-
-            <div class="descricao">2. Ver status das alterações:</div>
-            <p class="explicacao">
-                Para verificar quais arquivos foram modificados ou adicionados desde o último commit.
-            </p>
-            <div class="comando">
-                <code>git status</code>
-                <button class="copiar" data-clipboard-text="git status">Copiar</button>
-            </div>
-
-            <div class="descricao">3. Adicionar arquivos alterados:</div>
-            <p class="explicacao">
-                Deixa tudo pronto para ser commitado (staged).
-            </p>
-            <div class="comando">
-                <code>git add .</code>
-                <button class="copiar" data-clipboard-text="git add .">Copiar</button>
-            </div>
-
-            <div class="descricao">4. Criar commit:</div>
-            <p class="explicacao">
-                Grava o histórico das mudanças localmente, com uma mensagem que descreve o que foi feito.
-            </p>
-            <div class="comando">
-                <code>git commit -m "meu primeiro commit"</code>
-                <button class="copiar" data-clipboard-text='git commit -m "meu primeiro commit"'>Copiar</button>
-            </div>
-
-            <div class="descricao">5. Voltar para main:</div>
-            <p class="explicacao">
-                Normalmente voltamos à <code>main</code> para trazer atualizações ou mesclar a branch.
-            </p>
-            <div class="comando">
-                <code>git checkout main</code>
-                <button class="copiar" data-clipboard-text="git checkout main">Copiar</button>
-            </div>
-
-            <div class="descricao">6. Atualizar main:</div>
-            <p class="explicacao">
-                Caso existam alterações remotas, este comando atualiza a branch local.
-            </p>
-            <div class="comando">
-                <code>git pull</code>
-                <button class="copiar" data-clipboard-text="git pull">Copiar</button>
-            </div>
-
-            <div class="descricao">7. Juntar alterações da branch:</div>
-            <p class="explicacao">
-                Mescla as mudanças de <code>minha-branch</code> na <code>main</code>.
-            </p>
-            <div class="comando">
-                <code>git merge minha-branch</code>
-                <button class="copiar" data-clipboard-text="git merge minha-branch">Copiar</button>
-            </div>
-
-            <div class="descricao">8. Enviar para o GitHub:</div>
-            <p class="explicacao">
-                Publica as alterações no repositório remoto, acessível para o restante da equipe.
-            </p>
-            <div class="comando">
-                <code>git push</code>
-                <button class="copiar" data-clipboard-text="git push">Copiar</button>
-            </div>
-        </div>
-
-        <!-- ===================== TRABALHO REMOTO ===================== -->
-        <h2 id="remoto">8. Trabalho Remoto</h2>
-        <div class="descricao">Adicionar um repositório remoto:</div>
-        <p class="explicacao">
-            Associa o seu repositório local a um repositório remoto chamado <code>origin</code>. 
-            Permite enviar e receber alterações via internet.
-        </p>
-        <div class="comando">
-            <code>git remote add origin https://github.com/usuario/repositorio.git</code>
-            <button class="copiar" data-clipboard-text="git remote add origin https://github.com/usuario/repositorio.git">Copiar</button>
-        </div>
-
-        <div class="descricao">Enviar alterações para o repositório remoto:</div>
-        <p class="explicacao">
-            Faz o “upload” das alterações da sua branch local <code>main</code> para o repositório remoto 
-            (nomeado como <code>origin</code>).
-        </p>
-        <div class="comando">
-            <code>git push origin main</code>
-            <button class="copiar" data-clipboard-text="git push origin main">Copiar</button>
-        </div>
-
-        <div class="descricao">Atualizar seu repositório local:</div>
-        <p class="explicacao">
-            Faz o “download” das alterações que possam estar no remoto e mescla com sua <code>main</code> local.
-        </p>
-        <div class="comando">
-            <code>git pull origin main</code>
-            <button class="copiar" data-clipboard-text="git pull origin main">Copiar</button>
-        </div>
-
-        <!-- ===================== FLAGS DO GIT REMOTE E ORIGIN ===================== -->
-        <h3>Flags Principais do <code>git remote</code></h3>
-        <div class="nota">
-            <ul>
-                <li><code>git remote -v</code>: Lista todos os repositórios remotos e suas URLs (fetch e push).</li>
-                <li><code>git remote add &lt;nome&gt; &lt;url&gt;</code>: Cria um repositório remoto localmente (por exemplo, origin).</li>
-                <li><code>git remote remove &lt;nome&gt;</code>: Remove o repositório remoto configurado.</li>
-                <li><code>git remote rename &lt;old&gt; &lt;new&gt;</code>: Renomeia o repositório remoto.</li>
-                <li><code>git remote set-url &lt;nome&gt; &lt;url&gt;</code>: Altera a URL de um repositório remoto existente.</li>
-                <li><code>git remote set-head &lt;nome&gt; &lt;branch&gt;</code>: Define qual é a branch principal de um remoto.</li>
-            </ul>
-            <p class="explicacao">
-                Não existem muitas <em>flags</em> específicas em <code>git remote</code>, mas sim 
-                subcomandos (<code>add</code>, <code>remove</code>, <code>rename</code>, etc.).  
-                <code>origin</code> é apenas o nome padrão que damos ao repositório remoto principal.
-            </p>
-        </div>
-
-        <!-- ===================== TAGS ===================== -->
-        <h2 id="tags">9. Tags</h2>
-        <div class="descricao">Criar uma nova tag:</div>
-        <p class="explicacao">
-            Marca um ponto específico da sua linha do tempo do Git, geralmente usado para marcar 
-            versões de lançamento.
-        </p>
-        <div class="comando">
-            <code>git tag -a v1.0 -m "versão 1.0"</code>
-            <button class="copiar" data-clipboard-text='git tag -a v1.0 -m "versão 1.0"'>Copiar</button>
-        </div>
-
-        <div class="descricao">Enviar tags para o repositório remoto:</div>
-        <p class="explicacao">
-            Envia todas as tags que você criou localmente para o repositório remoto.
-        </p>
-        <div class="comando">
-            <code>git push origin --tags</code>
-            <button class="copiar" data-clipboard-text="git push origin --tags">Copiar</button>
-        </div>
-
-        <!-- ===================== FLAGS DO GIT TAG ===================== -->
-        <h3>Flags Principais do <code>git tag</code></h3>
-        <div class="nota">
-            <ul>
-                <li><code>-a</code> ou <code>--annotate</code>: Cria uma tag anotada (armazena nome, email, data, mensagem).</li>
-                <li><code>-m "mensagem"</code>: Define a mensagem da tag (somente válido para tags anotadas).</li>
-                <li><code>-s</code> ou <code>--sign</code>: Assina a tag usando GPG.</li>
-                <li><code>-u &lt;chave&gt;</code> ou <code>--local-user &lt;chave&gt;</code>: Usa uma chave GPG específica para assinar.</li>
-                <li><code>-f</code> ou <code>--force</code>: Sobrescreve (força) a criação de uma tag existente.</li>
-                <li><code>-d</code> ou <code>--delete</code>: Deleta uma tag local.</li>
-                <li><code>-l</code> ou <code>--list</code>: Lista todas as tags do repositório.</li>
-                <li><code>-n&lt;num&gt;</code>: Mostra &lt;num&gt; linhas da mensagem de cada tag listada (ex.: <code>git tag -n2</code>).</li>
-            </ul>
-        </div>
-
-        <!-- ===================== VERSIONAMENTO SEMÂNTICO ===================== -->
-        <h2 id="versionamento">10. Versionamento Semântico</h2>
-        <div class="nota">
-            <p><strong>Estrutura de Versão: MAJOR.MINOR.PATCH</strong></p>
-            <ul>
-                <li><strong>MAJOR (1.0.0)</strong>: Mudanças incompatíveis</li>
-                <li><strong>MINOR (1.1.0)</strong>: Novas funcionalidades compatíveis</li>
-                <li><strong>PATCH (1.0.1)</strong>: Correções de bugs</li>
-            </ul>
-            <p class="explicacao">
-                O versionamento semântico ajuda a entender rapidamente o que mudou em uma nova versão: 
-                se houve grandes quebras de compatibilidade ou apenas melhorias pontuais.
-            </p>
-        </div>
-
-        <h2>Fluxo de Versionamento</h2>
-        <pre>
+    <h2>Fluxo de Versionamento</h2>
+    <pre>
 Exemplo de evolução de versões:
 
 v1.0.0 - Lançamento inicial
@@ -786,224 +964,306 @@ v1.0.0 - Lançamento inicial
 ├── v1.1.0 - Nova funcionalidade
 │   └── v1.1.1 - Correção na funcionalidade
 └── v2.0.0 - Breaking changes
-        </pre>
+    </pre>
 
-        <!-- ===================== REVERSÃO DE VERSÕES ===================== -->
-        <h2 id="reversao">11. Reversão de Versões</h2>
-        <div class="nota">
-            <p><strong>Métodos disponíveis (do mais seguro ao mais perigoso):</strong></p>
-            <ol>
-                <li><strong>git revert:</strong> cria um novo commit que desfaz alterações.</li>
-                <li><strong>git checkout:</strong> navega entre versões (modo leitura, não altera histórico).</li>
-                <li><strong>git reset:</strong> reescreve o histórico. Use com cautela.</li>
-            </ol>
-            <p class="explicacao">
-                Sempre que precisar “voltar atrás” em algo que já foi commitado, planeje com cuidado qual 
-                método é o mais apropriado para não impactar o fluxo da equipe.
-            </p>
+    <!-- ===================== REVERSÃO DE VERSÕES ===================== -->
+    <h2 id="reversao">11. Reversão de Versões</h2>
+    <div class="nota">
+      <p><strong>Métodos disponíveis (do mais seguro ao mais perigoso):</strong></p>
+      <ol>
+        <li><strong>git revert:</strong> cria um novo commit que desfaz alterações.</li>
+        <li><strong>git checkout:</strong> navega entre versões (modo leitura, não altera histórico).</li>
+        <li><strong>git reset:</strong> reescreve o histórico. Use com cautela.</li>
+      </ol>
+      <p class="explicacao">
+        Sempre que precisar “voltar atrás” em algo que já foi commitado, planeje com cuidado qual 
+        método é o mais apropriado para não impactar o fluxo da equipe.
+      </p>
+    </div>
+
+    <div class="descricao">1. Ver histórico de commits:</div>
+    <p class="explicacao">
+      Lista os commits de forma resumida (ID e mensagem). É muito útil para localizar 
+      o commit exato que deseja reverter.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git log --oneline</code></pre>
+    </div>
+
+    <div class="descricao">2. Navegar para tag específica (modo leitura):</div>
+    <p class="explicacao">
+      Faz o checkout de um tag, permitindo que você veja o código como estava nessa versão, 
+      mas sem alterar o histórico principal.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout v1.0.0</code></pre>
+    </div>
+
+    <div class="descricao">3. Voltar para branch principal após visualização:</div>
+    <p class="explicacao">
+      Retorna para sua branch de trabalho (geralmente <code>main</code>) depois de ter 
+      “navegado” para outro commit/tag.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout main</code></pre>
+    </div>
+
+    <div class="descricao">4. Criar branch de segurança:</div>
+    <p class="explicacao">
+      Antes de fazer revert ou reset, crie uma branch para não mexer diretamente na <code>main</code>. 
+      Assim, você evita impactar todo o histórico.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout -b rollback-feature</code></pre>
+    </div>
+
+    <div class="descricao">5. Reverter para commit específico:</div>
+    <p class="explicacao">
+      Cria um novo commit que desfaz as alterações do commit <code>b8c9d14</code>. Preserva 
+      o histórico, ideal para equipes.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git revert b8c9d14</code></pre>
+    </div>
+
+    <div class="descricao">6. Reverter o último commit (HEAD):</div>
+    <p class="explicacao">
+      Desfaz o commit mais recente. Se você acabou de subir algo errado, este comando é uma 
+      forma rápida de corrigir.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git revert HEAD</code></pre>
+    </div>
+
+    <div class="nota">
+      <p><strong>⚠️ Importante:</strong></p>
+      <ul>
+        <li>Sempre crie uma branch antes de reversões grandes;</li>
+        <li>Use <code>git revert</code> ao invés de <code>git reset</code> em branches compartilhadas;</li>
+        <li>Faça backup antes de operações destrutivas;</li>
+        <li>Comunique a equipe sobre reversões em produção.</li>
+      </ul>
+    </div>
+
+    <div class="nota">
+      <p><strong>Exemplo de Fluxo Completo de Reversão:</strong></p>
+
+      <div class="descricao">1. Verificar tags disponíveis:</div>
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git tag</code></pre>
+      </div>
 
-        <div class="descricao">1. Ver histórico de commits:</div>
-        <p class="explicacao">
-            Lista os commits de forma resumida (ID e mensagem). É muito útil para localizar 
-            o commit exato que deseja reverter.
-        </p>
-        <div class="comando">
-            <code>git log --oneline</code>
-            <button class="copiar" data-clipboard-text="git log --oneline">Copiar</button>
+      <div class="descricao">2. Ver histórico de commits:</div>
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+        <pre><code>git log --oneline</code></pre>
+      </div>
 
-        <div class="descricao">2. Navegar para tag específica (modo leitura):</div>
-        <p class="explicacao">
-            Faz o checkout de um tag, permitindo que você veja o código como estava nessa versão, 
-            mas sem alterar o histórico principal.
-        </p>
-        <div class="comando">
-            <code>git checkout v1.0.0</code>
-            <button class="copiar" data-clipboard-text="git checkout v1.0.0">Copiar</button>
+      <p><strong>Reversão por Tag:</strong></p>
+      <div class="descricao">3a. Criar branch de segurança e voltar para tag:</div>
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+<pre><code>git checkout -b rollback-v1
+git checkout v1.0.0</code></pre>
+      </div>
 
-        <div class="descricao">3. Voltar para branch principal após visualização:</div>
-        <p class="explicacao">
-            Retorna para sua branch de trabalho (geralmente <code>main</code>) depois de ter 
-            “navegado” para outro commit/tag.
-        </p>
-        <div class="comando">
-            <code>git checkout main</code>
-            <button class="copiar" data-clipboard-text="git checkout main">Copiar</button>
+      <p><strong>Reversão por Commit:</strong></p>
+      <div class="descricao">3b. Criar branch e reverter para commit específico:</div>
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+<pre><code>git checkout -b rollback-commit
+git revert a7d3f12</code></pre>
+      </div>
 
-        <div class="descricao">4. Criar branch de segurança:</div>
-        <p class="explicacao">
-            Antes de fazer revert ou reset, crie uma branch para não mexer diretamente na <code>main</code>. 
-            Assim, você evita impactar todo o histórico.
-        </p>
-        <div class="comando">
-            <code>git checkout -b rollback-feature</code>
-            <button class="copiar" data-clipboard-text="git checkout -b rollback-feature">Copiar</button>
+      <div class="descricao">4. Se aprovado, merge com main:</div>
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
         </div>
+<pre><code>git checkout main
+git merge rollback-v1</code></pre>
+      </div>
+    </div>
 
-        <div class="descricao">5. Reverter para commit específico:</div>
-        <p class="explicacao">
-            Cria um novo commit que desfaz as alterações do commit <code>b8c9d14</code>. Preserva 
-            o histórico, ideal para equipes.
-        </p>
-        <div class="comando">
-            <code>git revert b8c9d14</code>
-            <button class="copiar" data-clipboard-text="git revert b8c9d14">Copiar</button>
-        </div>
+    <!-- ===================== FERRAMENTAS ÚTEIS ===================== -->
+    <h2 id="ferramentas">12. Ferramentas Úteis</h2>
+    <div class="descricao">Mostrar o histórico de commits:</div>
+    <p class="explicacao">
+      Mostra todo o histórico de commits em detalhes (autor, data, mensagem). Com opções 
+      adicionais, é possível ver o <em>diff</em> de cada commit.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git log</code></pre>
+    </div>
 
-        <div class="descricao">6. Reverter o último commit (HEAD):</div>
-        <p class="explicacao">
-            Desfaz o commit mais recente. Se você acabou de subir algo errado, este comando é uma 
-            forma rápida de corrigir.
-        </p>
-        <div class="comando">
-            <code>git revert HEAD</code>
-            <button class="copiar" data-clipboard-text="git revert HEAD">Copiar</button>
-        </div>
+    <div class="descricao">Mostrar diferenças entre arquivos:</div>
+    <p class="explicacao">
+      Compara o estado atual dos arquivos com o último commit ou entre dois commits específicos, 
+      exibindo as alterações linha a linha.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git diff</code></pre>
+    </div>
 
-        <div class="nota">
-            <p><strong>⚠️ Importante:</strong></p>
-            <ul>
-                <li>Sempre crie uma branch antes de reversões grandes;</li>
-                <li>Use <code>git revert</code> ao invés de <code>git reset</code> em branches compartilhadas;</li>
-                <li>Faça backup antes de operações destrutivas;</li>
-                <li>Comunique a equipe sobre reversões em produção.</li>
-            </ul>
-        </div>
+    <!-- ===================== RESOLUÇÃO DE CONFLITOS ===================== -->
+    <h2 id="conflitos">13. Resolução de Conflitos</h2>
+    <div class="descricao">Verificar arquivos em conflito:</div>
+    <p class="explicacao">
+      Exibe quais arquivos estão em conflito após um merge. Você precisa editar manualmente 
+      esses arquivos para decidir o que fica.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git status</code></pre>
+    </div>
 
-        <div class="nota">
-            <p><strong>Exemplo de Fluxo Completo de Reversão:</strong></p>
+    <div class="nota">
+      <p><strong>Passos para resolver conflitos:</strong></p>
+      <ol>
+        <li>Abrir arquivos marcados como conflitantes.</li>
+        <li>Procurar pelas marcações <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> e <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</li>
+        <li>Escolher as alterações que devem permanecer (ou mesclar as duas partes).</li>
+        <li>Remover as marcações de conflito e salvar o arquivo.</li>
+        <li>Adicionar e commitar as alterações resolvidas.</li>
+      </ol>
+    </div>
 
-            <div class="descricao">1. Verificar tags disponíveis:</div>
-            <div class="comando">
-                <code>git tag</code>
-                <button class="copiar" data-clipboard-text="git tag">Copiar</button>
-            </div>
+    <!-- ===================== GIT STASH ===================== -->
+    <h2 id="stash">14. Git Stash</h2>
+    <div class="descricao">Salvar alterações temporariamente com descrição:</div>
+    <p class="explicacao">
+      Move as alterações atuais para uma “pilha” (stash) e limpa seu ambiente de trabalho, 
+      sem precisar fazer commit.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git stash save "implementando nova feature de login"</code></pre>
+    </div>
 
-            <div class="descricao">2. Ver histórico de commits:</div>
-            <div class="comando">
-                <code>git log --oneline</code>
-                <button class="copiar" data-clipboard-text="git log --oneline">Copiar</button>
-            </div>
+    <div class="descricao">Listar stashes salvos:</div>
+    <p class="explicacao">
+      Mostra todos os “rascunhos” salvos pelo <code>stash</code>, cada um com um índice 
+      (<code>stash@{0}</code>, <code>stash@{1}</code>, etc.).
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git stash list</code></pre>
+    </div>
 
-            <p><strong>Reversão por Tag:</strong></p>
-            <div class="descricao">3a. Criar branch de segurança e voltar para tag:</div>
-            <div class="comando">
-<code>git checkout -b rollback-v1
-git checkout v1.0.0</code>
-<button class="copiar" data-clipboard-text="git checkout -b rollback-v1
-git checkout v1.0.0">Copiar</button>
-            </div>
+    <div class="descricao">Aplicar stash específico:</div>
+    <p class="explicacao">
+      Aplica as alterações do stash escolhido ao seu diretório de trabalho, mas mantém 
+      o stash salvo na lista.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git stash apply stash@{0}</code></pre>
+    </div>
 
-            <p><strong>Reversão por Commit:</strong></p>
-            <div class="descricao">3b. Criar branch e reverter para commit específico:</div>
-            <div class="comando">
-<code>git checkout -b rollback-commit
-git revert a7d3f12</code>
-<button class="copiar" data-clipboard-text="git checkout -b rollback-commit
-git revert a7d3f12">Copiar</button>
-            </div>
+    <div class="descricao">Recuperar e remover o último stash:</div>
+    <p class="explicacao">
+      Aplica as alterações do stash mais recente e o remove da lista.
+    </p>
+    <!-- SUBSTITUIÇÃO DO COMANDO -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git stash pop</code></pre>
+    </div>
 
-            <div class="descricao">4. Se aprovado, merge com main:</div>
-            <div class="comando">
-<code>git checkout main
-git merge rollback-v1</code>
-<button class="copiar" data-clipboard-text="git checkout main
-git merge rollback-v1">Copiar</button>
-            </div>
-        </div>
-
-        <!-- ===================== FERRAMENTAS ÚTEIS ===================== -->
-        <h2 id="ferramentas">12. Ferramentas Úteis</h2>
-        <div class="descricao">Mostrar o histórico de commits:</div>
-        <p class="explicacao">
-            Mostra todo o histórico de commits em detalhes (autor, data, mensagem). Com opções 
-            adicionais, é possível ver o <em>diff</em> de cada commit.
-        </p>
-        <div class="comando">
-            <code>git log</code>
-            <button class="copiar" data-clipboard-text="git log">Copiar</button>
-        </div>
-
-        <div class="descricao">Mostrar diferenças entre arquivos:</div>
-        <p class="explicacao">
-            Compara o estado atual dos arquivos com o último commit ou entre dois commits específicos, 
-            exibindo as alterações linha a linha.
-        </p>
-        <div class="comando">
-            <code>git diff</code>
-            <button class="copiar" data-clipboard-text="git diff">Copiar</button>
-        </div>
-
-        <!-- ===================== RESOLUÇÃO DE CONFLITOS ===================== -->
-        <h2 id="conflitos">13. Resolução de Conflitos</h2>
-        <div class="descricao">Verificar arquivos em conflito:</div>
-        <p class="explicacao">
-            Exibe quais arquivos estão em conflito após um merge. Você precisa editar manualmente 
-            esses arquivos para decidir o que fica.
-        </p>
-        <div class="comando">
-            <code>git status</code>
-            <button class="copiar" data-clipboard-text="git status">Copiar</button>
-        </div>
-
-        <div class="nota">
-            <p><strong>Passos para resolver conflitos:</strong></p>
-            <ol>
-                <li>Abrir arquivos marcados como conflitantes.</li>
-                <li>Procurar pelas marcações <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> e <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>.</li>
-                <li>Escolher as alterações que devem permanecer (ou mesclar as duas partes).</li>
-                <li>Remover as marcações de conflito e salvar o arquivo.</li>
-                <li>Adicionar e commitar as alterações resolvidas.</li>
-            </ol>
-        </div>
-
-        <!-- ===================== GIT STASH ===================== -->
-        <h2 id="stash">14. Git Stash</h2>
-        <div class="descricao">Salvar alterações temporariamente com descrição:</div>
-        <p class="explicacao">
-            Move as alterações atuais para uma “pilha” (stash) e limpa seu ambiente de trabalho, 
-            sem precisar fazer commit.
-        </p>
-        <div class="comando">
-            <code>git stash save "implementando nova feature de login"</code>
-            <button class="copiar" data-clipboard-text='git stash save "implementando nova feature de login"'>Copiar</button>
-        </div>
-
-        <div class="descricao">Listar stashes salvos:</div>
-        <p class="explicacao">
-            Mostra todos os “rascunhos” salvos pelo <code>stash</code>, cada um com um índice 
-            (<code>stash@{0}</code>, <code>stash@{1}</code>, etc.).
-        </p>
-        <div class="comando">
-            <code>git stash list</code>
-            <button class="copiar" data-clipboard-text="git stash list">Copiar</button>
-        </div>
-
-        <div class="descricao">Aplicar stash específico:</div>
-        <p class="explicacao">
-            Aplica as alterações do stash escolhido ao seu diretório de trabalho, mas mantém 
-            o stash salvo na lista.
-        </p>
-        <div class="comando">
-            <code>git stash apply stash@{0}</code>
-            <button class="copiar" data-clipboard-text="git stash apply stash@{0}">Copiar</button>
-        </div>
-
-        <div class="descricao">Recuperar e remover o último stash:</div>
-        <p class="explicacao">
-            Aplica as alterações do stash mais recente e o remove da lista.
-        </p>
-        <div class="comando">
-            <code>git stash pop</code>
-            <button class="copiar" data-clipboard-text="git stash pop">Copiar</button>
-        </div>
-
-        <div class="nota">
-            <p><strong>Exemplo de fluxo com stash:</strong></p>
-            <pre>
+    <div class="nota">
+      <p><strong>Exemplo de fluxo com stash:</strong></p>
+      <pre>
 # Salvando trabalho em progresso
 git stash save "feature login incompleta"
 
@@ -1016,14 +1276,14 @@ git commit -m "fix: corrige erro crítico"
 # Voltando à branch original
 git checkout feature
 git stash pop  # Recupera alterações salvas do stash e as remove da pilha
-            </pre>
-        </div>
+      </pre>
+    </div>
 
-        <!-- ===================== GIT IGNORE ===================== -->
-        <h2 id="ignore">15. Git Ignore</h2>
-        <div class="nota">
-            <p><strong>Arquivo <code>.gitignore</code>:</strong></p>
-            <pre>
+    <!-- ===================== GIT IGNORE ===================== -->
+    <h2 id="ignore">15. Git Ignore</h2>
+    <div class="nota">
+      <p><strong>Arquivo <code>.gitignore</code>:</strong></p>
+      <pre>
 # Arquivos compilados
 *.class
 *.jar
@@ -1040,24 +1300,24 @@ build/
 # Logs e temporários
 *.log
 temp/
-            </pre>
-            <p class="explicacao">
-                O arquivo <code>.gitignore</code> informa ao Git quais arquivos ou pastas devem ser 
-                ignorados (não rastreados). Ideal para não enviar credenciais ou arquivos grandes.
-            </p>
-        </div>
+      </pre>
+      <p class="explicacao">
+        O arquivo <code>.gitignore</code> informa ao Git quais arquivos ou pastas devem ser 
+        ignorados (não rastreados). Ideal para não enviar credenciais ou arquivos grandes.
+      </p>
+    </div>
 
-        <!-- ===================== BOAS PRÁTICAS DE COMMIT ===================== -->
-        <h2 id="boas-praticas">16. Boas Práticas de Commit</h2>
-        <div class="nota">
-            <p><strong>Estrutura de mensagem de commit:</strong></p>
-            <pre>
+    <!-- ===================== BOAS PRÁTICAS DE COMMIT ===================== -->
+    <h2 id="boas-praticas">16. Boas Práticas de Commit</h2>
+    <div class="nota">
+      <p><strong>Estrutura de mensagem de commit:</strong></p>
+      <pre>
 tipo(escopo): resumo curto
 
 descrição detalhada
-            </pre>
-            <p><strong>Exemplos práticos com comandos:</strong></p>
-            <pre>
+      </pre>
+      <p><strong>Exemplos práticos com comandos:</strong></p>
+      <pre>
 # Nova funcionalidade
 git add src/auth/*
 git commit -m "feat(auth): adiciona autenticação via Google
@@ -1097,306 +1357,343 @@ git commit -m "test(api): adiciona testes para endpoints de usuário
 - Adiciona testes de integração
 - Cobre casos de erro
 - Implementa mocks para dependências externas"
-            </pre>
-            <p class="explicacao">
-                Padronizar as mensagens de commit facilita o entendimento do histórico e a colaboração 
-                com a equipe. Use <code>tipo</code> para indicar se é uma nova feature (<code>feat</code>), 
-                correção (<code>fix</code>), documentação (<code>docs</code>), etc.
-            </p>
-        </div>
+      </pre>
+      <p class="explicacao">
+        Padronizar as mensagens de commit facilita o entendimento do histórico e a colaboração 
+        com a equipe. Use <code>tipo</code> para indicar se é uma nova feature (<code>feat</code>), 
+        correção (<code>fix</code>), documentação (<code>docs</code>), etc.
+      </p>
+    </div>
 
-        <!-- ===================== FLUXO DE TRABALHO COMPLETO (PUSH) ===================== -->
-<!-- ===================== FLUXO DE TRABALHO COMPLETO (PUSH) COM GIT FLOW ===================== -->
-<h2 id="fluxo-completo">Fluxo de Trabalho Completo com Git Flow</h2>
+    <!-- ===================== FLUXO DE TRABALHO COMPLETO (PUSH) ===================== -->
+    <h2 id="fluxo-completo">Fluxo de Trabalho Completo com Git</h2>
 
-<p class="explicacao">
-    A seguir, veremos um fluxo prático inspirado no <strong>Git Flow</strong> (aquele que envolve as 
-    branches <code>main</code>, <code>develop</code> e possivelmente 
-    <code>release/hotfix</code>) para organizar melhor o processo de desenvolvimento. Partimos desde a 
-    configuração de um repositório até o envio final das alterações, passando por criação de tags, 
-    reversão de versões e todo o processo de versionamento.
-</p>
-
-<div class="nota">
-    <p><strong>Cenário:</strong> Você está começando um novo projeto e quer manter uma 
-    separação clara entre o código em produção (<code>main</code>) e o trabalho em 
-    desenvolvimento (<code>develop</code>). A cada nova funcionalidade, cria-se uma feature 
-    branch a partir da develop. Ao concluir, mescla-se na develop. Quando chega a hora de lançar 
-    uma nova versão estável, cria-se uma <code>release</code> branch a partir da develop, faz os 
-    ajustes finais, e então mescla-se na <code>main</code> (criando a tag de versão). 
-    Em caso de bugs críticos na produção, pode-se criar um <code>hotfix</code> branch 
-    a partir da <code>main</code> e depois mesclar de volta na <code>develop</code> e na 
-    <code>main</code>.
+    <p class="explicacao">
+      A seguir, veremos um fluxo prático inspirado no <strong>Git Flow</strong> (aquele que envolve as 
+      branches <code>main</code>, <code>develop</code> e possivelmente 
+      <code>release/hotfix</code>) para organizar melhor o processo de desenvolvimento.
     </p>
-</div>
 
-<!-- 1. Criar ou Clonar Repositório e Criar 'develop' -->
-<div class="descricao">1. Criar ou Clonar Repositório e Criar Branch <code>develop</code></div>
-<p class="explicacao">
-    Se você ainda não tem um repositório criado no GitHub/GitLab, pode criá-lo no site e 
-    clonar localmente. Alternativamente, pode iniciar um repositório local com <code>git init</code> 
-    e adicionar o remoto depois. Em seguida, crie a branch <code>develop</code> a partir da 
-    <code>main</code>.
-</p>
-<div class="comando">
-    <code>git clone https://github.com/usuario/novo-projeto.git</code>
-    <button class="copiar" data-clipboard-text="git clone https://github.com/usuario/novo-projeto.git">Copiar</button>
-</div>
-<div class="comando">
-    <code>git init</code>
-    <button class="copiar" data-clipboard-text="git init">Copiar</button>
-</div>
-<div class="comando">
-    <code>git checkout -b develop</code>
-    <button class="copiar" data-clipboard-text="git checkout -b develop">Copiar</button>
-</div>
+    <div class="nota">
+      <p><strong>Cenário:</strong> Você está começando um novo projeto...</p>
+    </div>
 
-<!-- 2. Configurar Git (nome e email) -->
-<div class="descricao">2. Configurar Git (Nome e Email)</div>
-<p class="explicacao">
-    Mesmo após clonar ou iniciar um repositório, lembre-se de definir (caso ainda não tenha feito) 
-    seu nome e email de usuário.
-</p>
-<div class="comando">
-    <code>git config --global user.name "Seu Nome"</code>
-    <button class="copiar" data-clipboard-text='git config --global user.name "Seu Nome"'>Copiar</button>
-</div>
-<div class="comando">
-    <code>git config --global user.email "email@exemplo.com"</code>
-    <button class="copiar" data-clipboard-text='git config --global user.email "email@exemplo.com"'>Copiar</button>
-</div>
+    <div class="descricao">1. Criar ou Clonar Repositório e Criar Branch <code>develop</code></div>
+    <p class="explicacao">
+      Se você ainda não tem um repositório criado no GitHub/GitLab...
+    </p>
+    <!-- SUBSTITUIÇÃO DOS COMANDOS -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git clone https://github.com/usuario/novo-projeto.git</code></pre>
+    </div>
 
-<!-- 3. Criar Feature Branch a partir de 'develop' -->
-<div class="descricao">3. Criar Feature Branch</div>
-<p class="explicacao">
-    Para cada nova funcionalidade (feature), crie uma branch a partir da <code>develop</code>. 
-    Esse passo evita que a <code>develop</code> fique instável e permite que cada funcionalidade 
-    seja desenvolvida de forma independente.
-</p>
-<div class="comando">
-    <code>git checkout develop</code>
-    <button class="copiar" data-clipboard-text="git checkout develop">Copiar</button>
-</div>
-<div class="comando">
-    <code>git checkout -b feature-api</code>
-    <button class="copiar" data-clipboard-text="git checkout -b feature-api">Copiar</button>
-</div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git init</code></pre>
+    </div>
 
-<!-- 4. Fazer Alterações e Commits -->
-<div class="descricao">4. Fazer Alterações e Commits na Feature</div>
-<p class="explicacao">
-    Edite seu projeto (crie arquivos, modifique código) e então use <code>git add</code> para 
-    prepará-los para commit, seguido de <code>git commit</code> para registrar suas mudanças.
-</p>
-<div class="comando">
-    <code>git add .</code>
-    <button class="copiar" data-clipboard-text="git add .">Copiar</button>
-</div>
-<div class="comando">
-    <code>git commit -m "feat(api): implementa endpoints iniciais"</code>
-    <button class="copiar" data-clipboard-text='git commit -m "feat(api): implementa endpoints iniciais"'>Copiar</button>
-</div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout -b develop</code></pre>
+    </div>
 
-<!-- 5. Mesclar Feature na 'develop' -->
-<div class="descricao">5. Mesclar Feature na <code>develop</code></div>
-<p class="explicacao">
-    Após concluir o desenvolvimento da feature, volte para a <code>develop</code>, faça um 
-    <code>pull</code> para garantir que esteja atualizada e mescle a feature branch. Em times 
-    grandes, é comum criar Pull Requests/Merge Requests para revisão de código antes da mesclagem.
-</p>
-<div class="comando">
-    <code>git checkout develop</code>
-    <button class="copiar" data-clipboard-text="git checkout develop">Copiar</button>
-</div>
-<div class="comando">
-    <code>git pull</code>
-    <button class="copiar" data-clipboard-text="git pull">Copiar</button>
-</div>
-<div class="comando">
-    <code>git merge feature-api</code>
-    <button class="copiar" data-clipboard-text="git merge feature-api">Copiar</button>
-</div>
+    <div class="descricao">2. Configurar Git (Nome e Email)</div>
+    <p class="explicacao">
+      Mesmo após clonar ou iniciar um repositório, lembre-se de definir...
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git config --global user.name "Seu Nome"</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git config --global user.email "email@exemplo.com"</code></pre>
+    </div>
 
-<!-- 6. Criar Tag de Versão ou aguardar release branch? (Opcional) -->
-<div class="descricao">6. Iniciar uma Release Branch (quando pronto para lançar)</div>
-<p class="explicacao">
-    Quando chegar a hora de preparar um lançamento oficial, crie uma <code>release</code> branch 
-    a partir da <code>develop</code>. Nesta branch, você pode fazer ajustes finais e correções 
-    antes de colocá-la em produção.
-</p>
-<div class="comando">
-    <code>git checkout -b release-1.0.0 develop</code>
-    <button class="copiar" data-clipboard-text="git checkout -b release-1.0.0 develop">Copiar</button>
-</div>
+    <div class="descricao">3. Criar Feature Branch</div>
+    <p class="explicacao">
+      Para cada nova funcionalidade (feature), crie uma branch a partir da <code>develop</code>.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout develop</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout -b feature-api</code></pre>
+    </div>
 
-<p class="explicacao">
-    Após testar e garantir que a <code>release-1.0.0</code> está estável, você a mescla 
-    <strong>na main</strong> (e também volta para a develop para manter tudo sincronizado).
-</p>
-<div class="comando">
-    <code>git checkout main</code>
-    <button class="copiar" data-clipboard-text="git checkout main">Copiar</button>
-</div>
-<div class="comando">
-    <code>git merge release-1.0.0</code>
-    <button class="copiar" data-clipboard-text="git merge release-1.0.0">Copiar</button>
-</div>
-<div class="comando">
-    <code>git checkout develop<br>git merge release-1.0.0</code>
-    <button class="copiar" data-clipboard-text="git checkout develop
-git merge release-1.0.0">Copiar</button>
-</div>
+    <div class="descricao">4. Fazer Alterações e Commits na Feature</div>
+    <p class="explicacao">
+      Edite seu projeto e então use <code>git add</code> seguido de <code>git commit</code>.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git add .</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git commit -m "feat(api): implementa endpoints iniciais"</code></pre>
+    </div>
 
-<!-- 7. Criar Versão v1.0.0 -->
-<div class="descricao">7. Criar Tag de Versão</div>
-<p class="explicacao">
-    Agora que a main está pronta para produção, crie a tag oficial. Exemplo: 
-    <code>v1.0.0</code>.
-</p>
-<div class="comando">
-    <code>git checkout main</code>
-    <button class="copiar" data-clipboard-text="git checkout main">Copiar</button>
-</div>
-<div class="comando">
-    <code>git tag -a v1.0.0 -m "Lançamento oficial da versão 1.0.0"</code>
-    <button class="copiar" data-clipboard-text='git tag -a v1.0.0 -m "Lançamento oficial da versão 1.0.0"'>Copiar</button>
-</div>
+    <div class="descricao">5. Mesclar Feature na <code>develop</code></div>
+    <p class="explicacao">
+      Após concluir o desenvolvimento da feature...
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout develop</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git pull</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git merge feature-api</code></pre>
+    </div>
 
-<!-- 8. Enviar Tudo para o Repositório Remoto (Main + Tags) -->
-<div class="descricao">8. Enviar Tudo para o Remoto</div>
-<p class="explicacao">
-    Agora, envie as alterações da <code>main</code> e as novas tags para o repositório remoto.
-</p>
-<div class="comando">
-    <code>git push origin main</code>
-    <button class="copiar" data-clipboard-text="git push origin main">Copiar</button>
-</div>
-<div class="comando">
-    <code>git push origin --tags</code>
-    <button class="copiar" data-clipboard-text="git push origin --tags">Copiar</button>
-</div>
+    <div class="descricao">6. Iniciar uma Release Branch</div>
+    <p class="explicacao">
+      Quando chegar a hora de preparar um lançamento oficial...
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout -b release-1.0.0 develop</code></pre>
+    </div>
 
-<!-- 9. Hotfix Branch (Exemplo de correção emergencial) -->
-<div class="descricao">9. Correção Urgente via Hotfix Branch</div>
-<p class="explicacao">
-    Se você encontrar um problema grave na produção (ou seja, na <code>main</code>), crie 
-    imediatamente uma <code>hotfix</code> branch a partir da <code>main</code>, corrija o bug, 
-    e então mescle-a de volta na <code>main</code> e na <code>develop</code>.
-</p>
-<div class="comando">
-    <code>git checkout -b hotfix-1.0.1 main</code>
-    <button class="copiar" data-clipboard-text="git checkout -b hotfix-1.0.1 main">Copiar</button>
-</div>
-<div class="comando">
-    <code>git add .<br>git commit -m "fix: corrigir erro crítico em produção"</code>
-    <button class="copiar" data-clipboard-text="git add .
-git commit -m 'fix: corrigir erro crítico em produção'">Copiar</button>
-</div>
-<div class="comando">
-    <code>git checkout main<br>git merge hotfix-1.0.1</code>
-    <button class="copiar" data-clipboard-text="git checkout main
-git merge hotfix-1.0.1">Copiar</button>
-</div>
-<div class="comando">
-    <code>git checkout develop<br>git merge hotfix-1.0.1</code>
-    <button class="copiar" data-clipboard-text="git checkout develop
-git merge hotfix-1.0.1">Copiar</button>
-</div>
+    <p class="explicacao">
+      Após testar e garantir que a <code>release-1.0.0</code> está estável...
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout main
+git merge release-1.0.0</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout develop
+git merge release-1.0.0</code></pre>
+    </div>
 
-<!-- 10. Tag da Correção e Push -->
-<div class="descricao">10. Tag da Correção e <code>push</code></div>
-<p class="explicacao">
-    Marque a correção com uma nova tag (ex.: <code>v1.0.1</code>) e envie para o remoto.
-</p>
-<div class="comando">
-    <code>git checkout main<br>git tag -a v1.0.1 -m "Hotfix versão 1.0.1"</code>
-    <button class="copiar" data-clipboard-text="git checkout main
-git tag -a v1.0.1 -m 'Hotfix versão 1.0.1'">Copiar</button>
-</div>
-<div class="comando">
-    <code>git push origin main<br>git push origin --tags</code>
-    <button class="copiar" data-clipboard-text="git push origin main
-git push origin --tags">Copiar</button>
-</div>
+    <div class="descricao">7. Criar Tag de Versão</div>
+    <p class="explicacao">
+      Agora que a main está pronta para produção...
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout main</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git tag -a v1.0.0 -m "Lançamento oficial da versão 1.0.0"</code></pre>
+    </div>
 
-<!-- Flags Principais do git push -->
-<h3>Flags Principais do <code>git push</code></h3>
-<div class="nota">
-    <ul>
-        <li><code>-u</code> ou <code>--set-upstream</code>: Define a branch remota de acompanhamento (tracking). Ex.: <code>git push -u origin main</code>.</li>
-        <li><code>-f</code> ou <code>--force</code>: Força o push, sobrescrevendo histórico remoto. Use com cautela.</li>
+    <div class="descricao">8. Enviar Tudo para o Remoto</div>
+    <p class="explicacao">
+      Agora, envie as alterações da <code>main</code> e as novas tags para o repositório remoto.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git push origin main</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git push origin --tags</code></pre>
+    </div>
+
+    <div class="descricao">9. Correção Urgente via Hotfix Branch</div>
+    <p class="explicacao">
+      Se você encontrar um problema grave na produção (ou seja, na <code>main</code>)...
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>git checkout -b hotfix-1.0.1 main</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+<pre><code>git add .
+git commit -m "fix: corrigir erro crítico em produção"</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+<pre><code>git checkout main
+git merge hotfix-1.0.1</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+<pre><code>git checkout develop
+git merge hotfix-1.0.1</code></pre>
+    </div>
+
+    <div class="descricao">10. Tag da Correção e <code>push</code></div>
+    <p class="explicacao">
+      Marque a correção com uma nova tag (ex.: <code>v1.0.1</code>) e envie para o remoto.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+<pre><code>git checkout main
+git tag -a v1.0.1 -m "Hotfix versão 1.0.1"</code></pre>
+    </div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+<pre><code>git push origin main
+git push origin --tags</code></pre>
+    </div>
+
+    <h3>Flags Principais do <code>git push</code></h3>
+    <div class="nota">
+      <ul>
+        <li><code>-u</code> ou <code>--set-upstream</code>: Define a branch remota de acompanhamento.</li>
+        <li><code>-f</code> ou <code>--force</code>: Força o push, sobrescrevendo histórico remoto.</li>
         <li><code>--tags</code>: Envia todas as tags para o repositório remoto.</li>
-        <li><code>--all</code>: Envia todas as branches locais para o repositório remoto.</li>
-        <li><code>--delete</code>: Remove uma branch ou tag no remoto. Ex.: <code>git push origin --delete branch</code>.</li>
-        <li><code>--dry-run</code>: Mostra o que aconteceria no push, mas não envia nada de fato.</li>
-        <li><code>--atomic</code>: Se várias refs falharem, cancela todo o push (ou tudo ou nada).</li>
-        <li><code>--mirror</code>: Empurra todos os refs e revisões, espelhando completamente o repositório.</li>
-        <li><code>-q</code> ou <code>--quiet</code>: Modo silencioso, suprime a maioria das mensagens.</li>
-        <li><code>-v</code> ou <code>--verbose</code>: Modo verboso, mostra detalhes do que está sendo enviado.</li>
-    </ul>
-</div>
+        <li><code>--all</code>: Envia todas as branches locais.</li>
+        <li><code>--delete</code>: Remove uma branch ou tag no remoto.</li>
+        <li><code>--dry-run</code>: Mostra o que aconteceria no push, sem enviar de fato.</li>
+        <li><code>--atomic</code>: Se várias refs falharem, cancela todo o push.</li>
+        <li><code>--mirror</code>: Espelha completamente o repositório.</li>
+        <li><code>-q</code> ou <code>--quiet</code>: Modo silencioso.</li>
+        <li><code>-v</code> ou <code>--verbose</code>: Modo detalhado.</li>
+      </ul>
+    </div>
 
-<!-- Boas Práticas Gerais -->
-<h3 id="boas-praticas-gerais">Boas Práticas em Qualquer Cenário</h3>
-<div class="nota">
-    <ul>
+    <h3 id="boas-praticas-gerais">Boas Práticas Gerais</h3>
+    <div class="nota">
+      <ul>
         <li><strong>Commits pequenos e frequentes:</strong> facilitam rastreamento e reversão.</li>
-        <li><strong>Nomes de branches e commits claros:</strong> use convenções como <code>feature/login</code>, <code>fix/typo</code>, etc.</li>
-        <li><strong>Pull Requests (PRs) e Code Review:</strong> revisões antes de mesclar ajudam a manter a qualidade.</li>
-        <li><strong>Testes automatizados (CI):</strong> rodar testes em cada push/PR para manter tudo estável.</li>
-        <li><strong>Taggear versões:</strong> marcas de lançamento (v1.0.0, v1.1.0, etc.) facilitam rollback e referência.</li>
-        <li><strong>Não forçar push em branches compartilhadas:</strong> <code>git push --force</code> pode sobrescrever histórico e confundir o time.</li>
-        <li><strong>Documentar o fluxo:</strong> descreva em README/Wiki como criar branches, fazer merges, versionar, etc.</li>
-    </ul>
-</div>
+        <li><strong>Nomes de branches e commits claros:</strong> use convenções como <code>feature/login</code>.</li>
+        <li><strong>Pull Requests e Code Review:</strong> revisões antes de mesclar ajudam a qualidade.</li>
+        <li><strong>Testes automatizados (CI):</strong> rodar testes em cada push/PR.</li>
+        <li><strong>Taggear versões:</strong> facilita rollback e referência.</li>
+        <li><strong>Não forçar push em branches compartilhadas:</strong> pode confundir o time.</li>
+        <li><strong>Documentar o fluxo:</strong> descreva em README/Wiki como criar branches etc.</li>
+      </ul>
+    </div>
 
+  </div><!-- /#main-content -->
 
-    </div><!-- /#main-content -->
+  <!-- ======= SCRIPT NAVBAR (hamburguer) ======= -->
+  <script>
+    const navbarBtn = document.getElementById('navbar-btn');
+    const navbarMenu = document.getElementById('navbar-menu');
+    
+    // Abre/fecha ao clicar no botão hamburguer
+    navbarBtn.addEventListener('click', () => {
+      navbarMenu.classList.toggle('open');
+    });
+    
+    // Fecha menu quando usuário clica em um link
+    navbarMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navbarMenu.classList.remove('open');
+      });
+    });
+  </script>
 
-    <!-- ===================== SCRIPT PARA COPIAR TEXTO ===================== -->
-    <script>
-        // Script para abrir/fechar o menu hamburguer
-        const navbarBtn = document.getElementById('navbar-btn');
-        const navbarMenu = document.getElementById('navbar-menu');
-      
-        // Abre/fecha ao clicar no botão hamburguer
-        navbarBtn.addEventListener('click', () => {
-          navbarMenu.classList.toggle('open');
-        });
-      
-        // Fecha menu quando usuário clica em um link
-        navbarMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            navbarMenu.classList.remove('open');
-          });
-        });
-      </script>
-    <script>
-        // Script para copiar texto de cada botão com base em seu data-clipboard-text
-        document.querySelectorAll('.copiar').forEach(button => {
-            button.addEventListener('click', () => {
-                const textToCopy = button.getAttribute('data-clipboard-text');
-                
-                navigator.clipboard.writeText(textToCopy)
-                    .then(() => {
-                        button.textContent = 'Copiado!';
-                        setTimeout(() => {
-                            button.textContent = 'Copiar';
-                        }, 2000);
-                    })
-                    .catch(err => {
-                        console.error('Erro ao copiar:', err);
-                    });
-            });
-        });
-    </script>
-
-
-    <footer>
-        <p>© 2025 - Guia Completo de Git para Estudantes e Profissionais</p>
-    </footer>
+  <footer>
+    <p>© 2025 - Guia Completo de Git para Estudantes e Profissionais</p>
+  </footer>
 
 </body>
 </html>
-
-

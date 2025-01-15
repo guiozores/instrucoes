@@ -78,7 +78,7 @@
 
     /* Paragrafo */
     p {
-        text-align: justify;
+      text-align: justify;
     }
 
     /* Notas e Blocos de Observação */
@@ -102,38 +102,10 @@
       color: #333;
     }
 
-    /* Caixa do Comando */
-    .comando {
-      background: #f4f4f4;
-      padding: 10px 15px;
-      border-radius: 4px;
-      border: 1px solid #ddd;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 25px; 
-    }
-    .comando code {
-      font-family: monospace;
-      font-size: 14px;
-      color: #444;
-      white-space: pre-wrap; /* Permite que quebras de linha apareçam */
-    }
-
-    /* Botão de Copiar */
-    .copiar {
-      background: #0066cc;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 4px;
-      cursor: pointer;
-      margin-left: 10px;
-      font-size: 14px;
-    }
-    .copiar:hover {
-      background: #005bb5;
-    }
+    /*
+      Removido .comando e .copiar, pois
+      agora usamos .snippet-container
+    */
 
     /* Preformatado e Ul interior */
     pre {
@@ -220,15 +192,58 @@
       display: flex;
     }
 
-    /* ======= MEDIA QUERIES PARA TORNAR O MENU RESPONSIVO ======= */
-    /* DESKTOP (>= 769px): sidebar aparece, navbar some */
+    /* Container geral do snippet */
+    .snippet-container {
+      max-width: 500px;
+      margin: 1em 0;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      background: #fff;
+      font-family: sans-serif;
+      box-shadow: 0 1px 3px rgba(27,31,35,0.12);
+    }
+    .snippet-header {
+      display: flex;
+      align-items: center;
+      padding: 0.5em 0.75em;
+      border-bottom: 1px solid #e1e4e8;
+    }
+    .circle {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    .circle-red {
+      background-color: #ff5f57;
+    }
+    .circle-yellow {
+      background-color: #ffbd2e;
+    }
+    .circle-green {
+      background-color: #28c840;
+    }
+    .snippet-container pre {
+      margin: 0;
+      padding: 1em;
+      background: #f6f8fa;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      overflow-x: auto;
+    }
+    .snippet-container code {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 14px;
+      color: #333;
+    }
+
+    /* ======= MEDIA QUERIES ======= */
     @media (min-width: 769px) {
       .navbar {
         display: none;
       }
     }
-
-    /* TABLET E MOBILE (<= 768px): sidebar some, navbar aparece no topo */
     @media (max-width: 768px) {
       #sidebar {
         display: none;
@@ -279,358 +294,448 @@
   <!-- ======= CONTEÚDO PRINCIPAL ======= -->
   <div id="main-content">
 
-      <!-- Título Principal -->
-      <h1>Guia Completo de Instalação do WSL2 e Configuração do Zsh</h1>
+    <!-- Título Principal -->
+    <h1>Guia Completo de Instalação do WSL2 e Configuração do Zsh</h1>
     <p>
-        Este guia detalhado vai mostrar como transformar seu ambiente de desenvolvimento Windows em um ambiente Linux mais produtivo e elegante. Vamos aprender a:
+      Este guia detalhado vai mostrar como transformar seu ambiente de desenvolvimento Windows em um ambiente Linux mais produtivo e elegante. Vamos aprender a:
     </p>
     <ul>
-        <li>Instalar e configurar o WSL2 (Windows Subsystem for Linux 2)</li>
-        <li>Atualizar o PowerShell para melhor compatibilidade (opcional)</li>
-        <li>Instalar o Ubuntu como distribuição Linux padrão</li>
-        <li>Configurar o Zsh como shell principal</li>
-        <li>Instalar e personalizar o Oh My Zsh para melhor produtividade</li>
-        <li>Configurar o tema Powerlevel10k para uma interface moderna</li>
-        <li>Instalar as fontes Meslo LG S NF e Cascadia Code Mono NF para suporte a ícones</li>
-        <li>Aprender a editar arquivos de configuração usando o editor Nano</li>
+      <li>Instalar e configurar o WSL2 (Windows Subsystem for Linux 2)</li>
+      <li>Atualizar o PowerShell para melhor compatibilidade (opcional)</li>
+      <li>Instalar o Ubuntu como distribuição Linux padrão</li>
+      <li>Configurar o Zsh como shell principal</li>
+      <li>Instalar e personalizar o Oh My Zsh para melhor produtividade</li>
+      <li>Configurar o tema Powerlevel10k para uma interface moderna</li>
+      <li>Instalar as fontes Meslo LG S NF e Cascadia Code Mono NF para suporte a ícones</li>
+      <li>Aprender a editar arquivos de configuração usando o editor Nano</li>
     </ul>
     <p>
-        Ao final deste guia, você terá um ambiente de desenvolvimento Linux totalmente integrado ao Windows, com uma interface moderna e funcional.
+      Ao final deste guia, você terá um ambiente de desenvolvimento Linux totalmente integrado ao Windows, com uma interface moderna e funcional.
     </p>
 
-      <!-- ===================== INTRODUÇÃO ===================== -->
-      <h2 id="introducao">1. Introdução</h2>
-      <div class="nota">
-          <p><strong>O que é WSL2?</strong></p>
-          <p>
-              O Windows Subsystem for Linux 2 (WSL2) é uma camada de compatibilidade para rodar binários Linux nativamente no Windows 10 e 11. Ele proporciona melhor desempenho e compatibilidade em comparação com o WSL1.
-          </p>
-      </div>
-
-      <!-- ===================== ATUALIZAR O POWERSHELL ===================== -->
-      <h2 id="atualizar-powershell">2. Atualizar o PowerShell (Opcional)</h2>
-      <div class="descricao">Passo 1: Verificar a Versão Atual do PowerShell</div>
-      <p class="explicacao">
-          Antes de prosseguir, é recomendável garantir que você está usando a versão mais recente do PowerShell para evitar possíveis incompatibilidades.
+    <!-- ===================== INTRODUÇÃO ===================== -->
+    <h2 id="introducao">1. Introdução</h2>
+    <div class="nota">
+      <p><strong>O que é WSL2?</strong></p>
+      <p>
+        O Windows Subsystem for Linux 2 (WSL2) é uma camada de compatibilidade para rodar binários Linux nativamente no Windows 10 e 11. Ele proporciona melhor desempenho e compatibilidade em comparação com o WSL1.
       </p>
-      <div class="comando">
-          <code>pwsh -v</code>
-          <button class="copiar" data-clipboard-text="pwsh -v">Copiar</button>
-      </div>
+    </div>
 
-      <div class="descricao">Passo 2: Baixar e Instalar a Última Versão do PowerShell</div>
-      <p class="explicacao">
-          Se necessário, baixe a versão mais recente do PowerShell no site oficial e siga as instruções de instalação.
-      </p>
-      <p class="explicacao">
-          Visite o link abaixo para baixar a última versão do PowerShell:
-      </p>
-      <div class="comando">
-          <code>https://github.com/PowerShell/PowerShell/releases</code>
-          <button class="copiar" data-clipboard-text="https://github.com/PowerShell/PowerShell/releases">Copiar</button>
+    <!-- ===================== ATUALIZAR O POWERSHELL ===================== -->
+    <h2 id="atualizar-powershell">2. Atualizar o PowerShell (Opcional)</h2>
+    <div class="descricao">Passo 1: Verificar a Versão Atual do PowerShell</div>
+    <p class="explicacao">
+      Antes de prosseguir, é recomendável garantir que você está usando a versão mais recente do PowerShell para evitar possíveis incompatibilidades.
+    </p>
+    <!-- EXEMPLO DE SNIPPET (já está no novo formato) -->
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
-
-      <div class="nota">
-          <p><strong>Dica:</strong> Após a atualização, reinicie o PowerShell para aplicar as mudanças.</p>
+      <pre><code>$PSVersionTable</code></pre>
+    </div>
+    
+    <div class="descricao">Passo 2: Baixar e Instalar a Última Versão do PowerShell</div>
+    <p class="explicacao">
+      Se necessário, baixe a versão mais recente do PowerShell no site oficial e siga as instruções de instalação.
+    </p>
+    <p class="explicacao">
+      Visite o link abaixo para baixar a última versão do PowerShell:
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>https://github.com/PowerShell/PowerShell/releases</code></pre>
+    </div>
 
-      <!-- ===================== INSTALAÇÃO DO WSL2 NO WINDOWS ===================== -->
-      <h2 id="instalacao-wsl2">3. Instalação do WSL2 no Windows</h2>
+    <div class="nota">
+      <p><strong>Dica:</strong> Após a atualização, reinicie o PowerShell para aplicar as mudanças.</p>
+    </div>
 
-      <h3>Passo 1: Instalar o WSL2 com um Comando Único</h3>
-      <div class="descricao">Comando Simplificado:</div>
-      <p class="explicacao">
-          A Microsoft simplificou a instalação do WSL2 com um único comando. Execute o seguinte no PowerShell com privilégios de administrador:
-      </p>
-      <div class="comando">
-          <code>wsl --install</code>
-          <button class="copiar" data-clipboard-text="wsl --install">Copiar</button>
+    <!-- ===================== INSTALAÇÃO DO WSL2 NO WINDOWS ===================== -->
+    <h2 id="instalacao-wsl2">3. Instalação do WSL2 no Windows</h2>
+
+    <h3>Passo 1: Instalar o WSL2 com um Comando Único</h3>
+    <div class="descricao">Comando Simplificado:</div>
+    <p class="explicacao">
+      A Microsoft simplificou a instalação do WSL2 com um único comando. Execute o seguinte no PowerShell com privilégios de administrador:
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
-      <p class="explicacao">
-          Este comando habilita o WSL, instala o Ubuntu por padrão e define o WSL2 como a versão padrão.
-      </p>
+      <pre><code>wsl --install</code></pre>
+    </div>
+    <p class="explicacao">
+      Este comando habilita o WSL, instala o Ubuntu por padrão e define o WSL2 como a versão padrão.
+    </p>
 
-      <div class="descricao">Passo 2: Reiniciar o Computador</div>
-      <p class="explicacao">
-          Após a execução do comando, será solicitado que você reinicie o computador para finalizar a instalação e realizar as atualizações de sistema do Linux. Após reiniciar, crie a senha solicitada para o usuário sudo (administrador) e realize as atualizações.
-      </p>
-      <div class="comando">
-          <code>sudo apt update && sudo apt upgrade -y</code>
-          <button class="copiar" data-clipboard-text="sudo apt update && sudo apt upgrade -y">Copiar</button>
+    <div class="descricao">Passo 2: Reiniciar o Computador</div>
+    <p class="explicacao">
+      Após a execução do comando, será solicitado que você reinicie o computador para finalizar a instalação e realizar as atualizações de sistema do Linux. Após reiniciar, crie a senha solicitada para o usuário sudo (administrador) e realize as atualizações.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>sudo apt update &amp;&amp; sudo apt upgrade -y</code></pre>
+    </div>
 
-      <div class="nota">
-          <p><strong>Links Úteis:</strong></p>
-          <ul>
-              <li>Documentação Oficial do WSL2: <a href="https://docs.microsoft.com/pt-br/windows/wsl/" target="_blank">docs.microsoft.com/wsl</a></li>
-              <li>Distribuições Disponíveis: <a href="https://aka.ms/wslstore" target="_blank">aka.ms/wslstore</a></li>
-          </ul>
-      </div>
+    <div class="nota">
+      <p><strong>Links Úteis:</strong></p>
+      <ul>
+        <li>Documentação Oficial do WSL2: <a href="https://docs.microsoft.com/pt-br/windows/wsl/" target="_blank">docs.microsoft.com/wsl</a></li>
+        <li>Distribuições Disponíveis: <a href="https://aka.ms/wslstore" target="_blank">aka.ms/wslstore</a></li>
+      </ul>
+    </div>
 
-      <!-- ===================== CONFIGURAÇÃO DO ZSH ===================== -->
-      <h2 id="configuracao-zsh">4. Configuração do Zsh</h2>
-      <div class="descricao">Passo 1: Instalar o Zsh</div>
-      <p class="explicacao">
-          O Zsh é um shell poderoso que oferece muitos recursos avançados em comparação com o Bash.
-      </p>
-      <div class="comando">
-          <code>sudo apt update && sudo apt install zsh -y</code>
-          <button class="copiar" data-clipboard-text="sudo apt update && sudo apt install zsh -y">Copiar</button>
+    <!-- ===================== CONFIGURAÇÃO DO ZSH ===================== -->
+    <h2 id="configuracao-zsh">4. Configuração do Zsh</h2>
+    <div class="descricao">Passo 1: Instalar o Zsh</div>
+    <p class="explicacao">
+      O Zsh é um shell poderoso que oferece muitos recursos avançados em comparação com o Bash.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>sudo apt update &amp;&amp; sudo apt install zsh -y</code></pre>
+    </div>
 
-      <div class="descricao">Passo 2: Definir o Zsh como Shell Padrão</div>
-      <p class="explicacao">
-          Após a instalação, defina o Zsh como seu shell padrão.
-      </p>
-      <div class="comando">
-          <code>chsh -s $(which zsh)</code>
-          <button class="copiar" data-clipboard-text="chsh -s $(which zsh)">Copiar</button>
+    <div class="descricao">Passo 2: Definir o Zsh como Shell Padrão</div>
+    <p class="explicacao">
+      Após a instalação, defina o Zsh como seu shell padrão.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
-      <p class="explicacao">
-          Você pode precisar reiniciar o terminal ou a distribuição para que as mudanças tenham efeito.
-      </p>
+      <pre><code>chsh -s $(which zsh)</code></pre>
+    </div>
+    <p class="explicacao">
+      Você pode precisar reiniciar o terminal ou a distribuição para que as mudanças tenham efeito.
+    </p>
 
-      <div class="nota">
-          <p><strong>Dica:</strong> Se o comando <code>chsh</code> não funcionar, certifique-se de que o Zsh está corretamente instalado e que você tem as permissões necessárias.</p>
-      </div>
+    <div class="nota">
+      <p><strong>Dica:</strong> Se o comando <code>chsh</code> não funcionar, certifique-se de que o Zsh está corretamente instalado e que você tem as permissões necessárias.</p>
+    </div>
 
-      <!-- ===================== INSTALAÇÃO DO OH MY ZSH ===================== -->
-      <h2 id="oh-my-zsh">5. Instalação do Oh My Zsh</h2>
-      <div class="descricao">Passo 1: Instalar o Oh My Zsh</div>
-      <p class="explicacao">
-          O Oh My Zsh é um framework para gerenciamento de configurações do Zsh, oferecendo inúmeros plugins e temas.
-      </p>
-      <div class="comando">
-          <code>sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</code>
-          <button class="copiar" data-clipboard-text='sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'>Copiar</button>
+    <!-- ===================== INSTALAÇÃO DO OH MY ZSH ===================== -->
+    <h2 id="oh-my-zsh">5. Instalação do Oh My Zsh</h2>
+    <div class="descricao">Passo 1: Instalar o Oh My Zsh</div>
+    <p class="explicacao">
+      O Oh My Zsh é um framework para gerenciamento de configurações do Zsh, oferecendo inúmeros plugins e temas.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
-      <p class="explicacao">
-          Siga as instruções exibidas no terminal para concluir a instalação.
-      </p>
+      <pre><code>sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"</code></pre>
+    </div>
+    <p class="explicacao">
+      Siga as instruções exibidas no terminal para concluir a instalação.
+    </p>
 
-      <div class="nota">
-          <p><strong>Links Úteis:</strong></p>
-          <ul>
-              <li>Site Oficial do Oh My Zsh: <a href="https://ohmyz.sh/" target="_blank">ohmyz.sh</a></li>
-              <li>Repositório no GitHub: <a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank">github.com/ohmyzsh/ohmyzsh</a></li>
-          </ul>
-      </div>
+    <div class="nota">
+      <p><strong>Links Úteis:</strong></p>
+      <ul>
+        <li>Site Oficial do Oh My Zsh: <a href="https://ohmyz.sh/" target="_blank">ohmyz.sh</a></li>
+        <li>Repositório no GitHub: <a href="https://github.com/ohmyzsh/ohmyzsh" target="_blank">github.com/ohmyzsh/ohmyzsh</a></li>
+      </ul>
+    </div>
 
-      <!-- ===================== INSTALAÇÃO DO POWERLEVEL10K ===================== -->
-      <h2 id="powerlevel10k">6. Instalação do Powerlevel10k</h2>
-      <div class="descricao">Passo 1: Clonar o Repositório do Powerlevel10k</div>
-      <p class="explicacao">
-          O Powerlevel10k é um tema para Oh My Zsh que oferece uma aparência elegante e altamente personalizável.
-      </p>
-      <div class="comando">
-          <code>git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k</code>
-          <button class="copiar" data-clipboard-text='git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k'>Copiar</button>
+    <!-- ===================== INSTALAÇÃO DO POWERLEVEL10K ===================== -->
+    <h2 id="powerlevel10k">6. Instalação do Powerlevel10k</h2>
+    <div class="descricao">Passo 1: Clonar o Repositório do Powerlevel10k</div>
+    <p class="explicacao">
+      O Powerlevel10k é um tema para Oh My Zsh que oferece uma aparência elegante e altamente personalizável.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k</code></pre>
+    </div>
 
-      <div class="descricao">Passo 2: Configurar o Tema no Oh My Zsh</div>
-      <p class="explicacao">
-          Edite o arquivo de configuração do Oh My Zsh para usar o tema Powerlevel10k.
-      </p>
-      <div class="comando">
-          <code>sed -i 's/^ZSH_THEME=.*/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc</code>
-          <button class="copiar" data-clipboard-text='sed -i \'s/^ZSH_THEME=.*/ZSH_THEME="powerlevel10k\/powerlevel10k"/\' ~/.zshrc'>Copiar</button>
+    <div class="descricao">Passo 2: Configurar o Tema no Oh My Zsh</div>
+    <p class="explicacao">
+      Edite o arquivo de configuração do Oh My Zsh para usar o tema Powerlevel10k.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
-      <p class="explicacao">
-          Reinicie o terminal para iniciar a configuração interativa do Powerlevel10k.
-      </p>
-      <div class="comando">
-          <code>exec zsh</code>
-          <button class="copiar" data-clipboard-text="exec zsh">Copiar</button>
+      <pre><code>sed -i 's/^ZSH_THEME=.*/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc</code></pre>
+    </div>
+    <p class="explicacao">
+      Reinicie o terminal para iniciar a configuração interativa do Powerlevel10k.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>exec zsh</code></pre>
+    </div>
 
-      <div class="nota">
-          <p><strong>Dica:</strong> Durante a configuração, você pode personalizar a aparência do seu prompt conforme suas preferências.</p>
-          <p><strong>Nota:</strong> Caso a configuração interativa do Powerlevel10k não inicie automaticamente, você pode configurá-lo manualmente editando o arquivo de configuração com o Nano.</p>
-          <div class="comando">
-              <code>p10k configure</code>
-              <button class="copiar" data-clipboard-text="p10k configure">Copiar</button>
-          </div>
+    <div class="nota">
+      <p><strong>Dica:</strong> Durante a configuração, você pode personalizar a aparência do seu prompt conforme suas preferências.</p>
+      <p><strong>Nota:</strong> Caso a configuração interativa do Powerlevel10k não inicie automaticamente, você pode configurá-lo manualmente editando o arquivo de configuração com o Nano.</p>
+      <div class="snippet-container">
+        <div class="snippet-header">
+          <span class="circle circle-red"></span>
+          <span class="circle circle-yellow"></span>
+          <span class="circle circle-green"></span>
+        </div>
+        <pre><code>p10k configure</code></pre>
       </div>
+    </div>
 
-      <!-- ===================== CONFIGURAÇÃO MANUAL DO POWERLEVEL10K ===================== -->
-      <h3>Passo 3: Configuração Manual do Powerlevel10k (Se Necessário)</h3>
-      <p class="explicacao">
-          Se a configuração interativa não iniciar automaticamente, você pode editar o arquivo de configuração do Powerlevel10k manualmente usando o editor Nano.
-      </p>
-      <div class="descricao">Passo 1: Abrir o Arquivo de Configuração do Powerlevel10k no Nano</div>
-      <div class="comando">
-          <code>nano ~/.p10k.zsh</code>
-          <button class="copiar" data-clipboard-text="nano ~/.p10k.zsh">Copiar</button>
+    <!-- ===================== CONFIGURAÇÃO MANUAL DO POWERLEVEL10K ===================== -->
+    <h3>Passo 3: Configuração Manual do Powerlevel10k (Se Necessário)</h3>
+    <p class="explicacao">
+      Se a configuração interativa não iniciar automaticamente, você pode editar o arquivo de configuração do Powerlevel10k manualmente usando o editor Nano.
+    </p>
+    <div class="descricao">Passo 1: Abrir o Arquivo de Configuração do Powerlevel10k no Nano</div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
-      <p class="explicacao">
-          O arquivo `.p10k.zsh` contém as configurações do Powerlevel10k. Você pode personalizar o tema ajustando essas configurações conforme suas preferências.
-      </p>
+      <pre><code>nano ~/.p10k.zsh</code></pre>
+    </div>
+    <p class="explicacao">
+      O arquivo <code>.p10k.zsh</code> contém as configurações do Powerlevel10k. Você pode personalizar o tema ajustando essas configurações conforme suas preferências.
+    </p>
 
-      <div class="descricao">Passo 2: Editar o Arquivo</div>
-      <p class="explicacao">
-          Navegue até o local desejado no arquivo e insira ou modifique as configurações conforme necessário.
-      </p>
-      <div class="comando">
-          <code>Use as setas do teclado para navegar e comece a digitar.</code>
-          <button class="copiar" data-clipboard-text="Use as setas do teclado para navegar e comece a digitar.">Copiar</button>
+    <div class="descricao">Passo 2: Editar o Arquivo</div>
+    <p class="explicacao">
+      Navegue até o local desejado no arquivo e insira ou modifique as configurações conforme necessário.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>Use as setas do teclado para navegar e comece a digitar.</code></pre>
+    </div>
 
-      <div class="descricao">Passo 3: Salvar as Alterações</div>
-      <p class="explicacao">
-          Após editar, salve as mudanças:
-      </p>
-      <div class="comando">
-          <code>Pressione <strong>Ctrl + O</strong>, depois <strong>Enter</strong> para salvar.</code>
-          <button class="copiar" data-clipboard-text="Pressione Ctrl + O, depois Enter para salvar.">Copiar</button>
+    <div class="descricao">Passo 3: Salvar as Alterações</div>
+    <p class="explicacao">
+      Após editar, salve as mudanças:
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>Pressione Ctrl + O, depois Enter para salvar.</code></pre>
+    </div>
 
-      <div class="descricao">Passo 4: Fechar o Nano</div>
-      <p class="explicacao">
-          Para fechar o Nano, pressione:
-      </p>
-      <div class="comando">
-          <code>Ctrl + X</code>
-          <button class="copiar" data-clipboard-text="Ctrl + X">Copiar</button>
+    <div class="descricao">Passo 4: Fechar o Nano</div>
+    <p class="explicacao">
+      Para fechar o Nano, pressione:
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>Ctrl + X</code></pre>
+    </div>
 
-      <div class="nota">
-          <p><strong>Dica:</strong> Sempre verifique se não há erros de sintaxe no arquivo `.p10k.zsh` após a edição para evitar problemas ao iniciar o terminal.</p>
-      </div>
+    <div class="nota">
+      <p><strong>Dica:</strong> Sempre verifique se não há erros de sintaxe no arquivo <code>.p10k.zsh</code> após a edição para evitar problemas ao iniciar o terminal.</p>
+    </div>
 
-      <!-- ===================== INSTALAÇÃO DAS FONTES NERD ===================== -->
-      <h2 id="instalacao-fontes">7. Instalação das Fontes Nerd</h2>
-      <div class="descricao">Passo 1: Baixar as Fontes</div>
-      <p class="explicacao">
-          As fontes Meslo LG S NF e Cascadia Code Mono NF são necessárias para uma melhor visualização dos ícones no Powerlevel10k.
-      </p>
+    <!-- ===================== INSTALAÇÃO DAS FONTES NERD ===================== -->
+    <h2 id="instalacao-fontes">7. Instalação das Fontes Nerd</h2>
+    <div class="descricao">Passo 1: Baixar as Fontes</div>
+    <p class="explicacao">
+      As fontes Meslo LG S NF e Cascadia Code Mono NF são necessárias para uma melhor visualização dos ícones no Powerlevel10k.
+    </p>
       
-      <div class="descricao">Passo 1.1: Baixar Meslo LG S NF</div>
-      <div class="comando">
-          <code><a href="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf" target="_self">https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf</a></code>
-          <button class="copiar" data-clipboard-text="https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf">Copiar</button>
+    <div class="descricao">Passo 1.1: Baixar Meslo LG S NF</div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf</code></pre>
+    </div>
 
-      <div class="descricao">Passo 1.2: Baixar Cascadia Code Mono NF</div>
-      <div class="comando">
-          <code><a href="https://github.com/romkatv/powerlevel10k-media/raw/master/CascadiaCodePL%20Regular.ttf" target="_self">https://github.com/romkatv/powerlevel10k-media/raw/master/CascadiaCodePL%20Regular.ttf</a></code>
-          <button class="copiar" data-clipboard-text="https://github.com/romkatv/powerlevel10k-media/raw/master/CascadiaCodePL%20Regular.ttf">Copiar</button>
+    <div class="descricao">Passo 1.2: Baixar Cascadia Code Mono NF</div>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>https://github.com/romkatv/powerlevel10k-media/raw/master/CascadiaCodePL%20Regular.ttf</code></pre>
+    </div>
 
-      <div class="descricao">Passo 2: Instalar as Fontes</div>
-      <p class="explicacao">
-          Após baixar os arquivos, instale as fontes clicando duas vezes em cada arquivo `.ttf` e selecionando "Instalar".
-      </p>
-      <div class="comando">
-          <code>Abrir cada arquivo .ttf e clicar em "Instalar".</code>
-          <button class="copiar" data-clipboard-text='Abrir cada arquivo .ttf e clicar em "Instalar".'>Copiar</button>
+    <div class="descricao">Passo 2: Instalar as Fontes</div>
+    <p class="explicacao">
+      Após baixar os arquivos, instale as fontes clicando duas vezes em cada arquivo <code>.ttf</code> e selecionando "Instalar".
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>Abrir cada arquivo .ttf e clicar em "Instalar".</code></pre>
+    </div>
 
-      <div class="descricao">Passo 3: Configurar o Terminal para Usar as Fontes Instaladas</div>
-      <p class="explicacao">
-          Abra as configurações do seu terminal (como Windows Terminal) e defina a fonte padrão para Meslo LG S NF ou Cascadia Code Mono NF.
-      </p>
-      <div class="comando">
-          <code>
-1. Abra as configurações do Windows Terminal.<br>
-2. Selecione o perfil que deseja alterar.<br>
-3. Em "Appearance", escolha a fonte "MesloLGS NF" ou "Cascadia Code Mono NF".
-          </code>
-          <button class="copiar" data-clipboard-text="1. Abra as configurações do Windows Terminal.
+    <div class="descricao">Passo 3: Configurar o Terminal para Usar as Fontes Instaladas</div>
+    <p class="explicacao">
+      Abra as configurações do seu terminal (como Windows Terminal) e defina a fonte padrão para Meslo LG S NF ou Cascadia Code Mono NF.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
+      </div>
+      <pre><code>1. Abra as configurações do Windows Terminal.
 2. Selecione o perfil que deseja alterar.
-3. Em 'Appearance', escolha a fonte 'MesloLGS NF' ou 'Cascadia Code Mono NF'.">Copiar</button>
-      </div>
+3. Em "Appearance", escolha a fonte "MesloLGS NF" ou "Cascadia Code Mono NF".</code></pre>
+    </div>
 
-      <div class="nota">
-          <p><strong>Links Úteis:</strong></p>
-          <ul>
-              <li>Meslo Nerd Font: <a href="https://github.com/romkatv/powerlevel10k-media/blob/master/MesloLGS%20NF%20Regular.ttf?raw=true" target="_blank">Download</a></li>
-              <li>Cascadia Code Mono Nerd Font: <a href="https://github.com/romkatv/powerlevel10k-media/blob/master/CascadiaCodePL%20Regular.ttf?raw=true" target="_blank">Download</a></li>
-          </ul>
-      </div>
-      <!-- ===================== EDITAR .ZSHRC COM NANO ===================== -->
-      <h2 id="editar-zshrc">8. Editar .zshrc com Nano</h2>
-      <div class="descricao">Passo 1: Abrir o Arquivo .zshrc no Nano</div>
-      <p class="explicacao">
-          O Nano é um editor de texto simples e fácil de usar no terminal. Para editar o arquivo `.zshrc`, use o seguinte comando:
-      </p>
-      <div class="comando">
-          <code>nano ~/.zshrc</code>
-          <button class="copiar" data-clipboard-text="nano ~/.zshrc">Copiar</button>
-      </div>
+    <div class="nota">
+      <p><strong>Links Úteis:</strong></p>
+      <ul>
+        <li>Meslo Nerd Font: <a href="https://github.com/romkatv/powerlevel10k-media/blob/master/MesloLGS%20NF%20Regular.ttf?raw=true" target="_blank">Download</a></li>
+        <li>Cascadia Code Mono Nerd Font: <a href="https://github.com/romkatv/powerlevel10k-media/blob/master/CascadiaCodePL%20Regular.ttf?raw=true" target="_blank">Download</a></li>
+      </ul>
+    </div>
 
-      <div class="descricao">Passo 2: Editar o Arquivo</div>
-      <p class="explicacao">
-          Navegue até o local desejado no arquivo e insira ou modifique as configurações conforme necessário.
-      </p>
-      <div class="comando">
-          <code>Use as setas do teclado para navegar e comece a digitar.</code>
-          <button class="copiar" data-clipboard-text="Use as setas do teclado para navegar e comece a digitar.">Copiar</button>
+    <!-- ===================== EDITAR .ZSHRC COM NANO ===================== -->
+    <h2 id="editar-zshrc">8. Editar .zshrc com Nano</h2>
+    <div class="descricao">Passo 1: Abrir o Arquivo .zshrc no Nano</div>
+    <p class="explicacao">
+      O Nano é um editor de texto simples e fácil de usar no terminal. Para editar o arquivo <code>.zshrc</code>, use o seguinte comando:
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>nano ~/.zshrc</code></pre>
+    </div>
 
-      <div class="descricao">Passo 3: Salvar as Alterações</div>
-      <p class="explicacao">
-          Após editar, salve as mudanças:
-      </p>
-      <div class="comando">
-          <code>Pressione <strong>Ctrl + O</strong>, depois <strong>Enter</strong> para salvar.</code>
-          <button class="copiar" data-clipboard-text="Pressione Ctrl + O, depois Enter para salvar.">Copiar</button>
+    <div class="descricao">Passo 2: Editar o Arquivo</div>
+    <p class="explicacao">
+      Navegue até o local desejado no arquivo e insira ou modifique as configurações conforme necessário.
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>Use as setas do teclado para navegar e comece a digitar.</code></pre>
+    </div>
 
-      <div class="descricao">Passo 4: Fechar o Nano</div>
-      <p class="explicacao">
-          Para fechar o Nano, pressione:
-      </p>
-      <div class="comando">
-          <code>Ctrl + X</code>
-          <button class="copiar" data-clipboard-text="Ctrl + X">Copiar</button>
+    <div class="descricao">Passo 3: Salvar as Alterações</div>
+    <p class="explicacao">
+      Após editar, salve as mudanças:
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>Pressione Ctrl + O, depois Enter para salvar.</code></pre>
+    </div>
 
-      <div class="nota">
-          <p><strong>Dica:</strong> Sempre verifique se não há erros de sintaxe no arquivo `.zshrc` após a edição para evitar problemas ao iniciar o terminal.</p>
+    <div class="descricao">Passo 4: Fechar o Nano</div>
+    <p class="explicacao">
+      Para fechar o Nano, pressione:
+    </p>
+    <div class="snippet-container">
+      <div class="snippet-header">
+        <span class="circle circle-red"></span>
+        <span class="circle circle-yellow"></span>
+        <span class="circle circle-green"></span>
       </div>
+      <pre><code>Ctrl + X</code></pre>
+    </div>
+
+    <div class="nota">
+      <p><strong>Dica:</strong> Sempre verifique se não há erros de sintaxe no arquivo <code>.zshrc</code> após a edição para evitar problemas ao iniciar o terminal.</p>
+    </div>
 
   </div><!-- /#main-content -->
 
   <!-- ======= SCRIPT PARA COPIAR TEXTO ======= -->
   <script>
-      // Script para abrir/fechar o menu hamburguer
-      const navbarBtn = document.getElementById('navbar-btn');
-      const navbarMenu = document.getElementById('navbar-menu');
-    
-      // Abre/fecha ao clicar no botão hamburguer
-      navbarBtn.addEventListener('click', () => {
-        navbarMenu.classList.toggle('open');
+    // Script para abrir/fechar o menu hamburguer
+    const navbarBtn = document.getElementById('navbar-btn');
+    const navbarMenu = document.getElementById('navbar-menu');
+  
+    // Abre/fecha ao clicar no botão hamburguer
+    navbarBtn.addEventListener('click', () => {
+      navbarMenu.classList.toggle('open');
+    });
+  
+    // Fecha menu quando usuário clica em um link
+    navbarMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navbarMenu.classList.remove('open');
       });
-    
-      // Fecha menu quando usuário clica em um link
-      navbarMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-          navbarMenu.classList.remove('open');
-        });
-      });
-    </script>
+    });
+  </script>
   <script>
-      // Script para copiar texto de cada botão com base em seu data-clipboard-text
-      document.querySelectorAll('.copiar').forEach(button => {
-          button.addEventListener('click', () => {
-              const textToCopy = button.getAttribute('data-clipboard-text');
-              
-              navigator.clipboard.writeText(textToCopy)
-                  .then(() => {
-                      button.textContent = 'Copiado!';
-                      setTimeout(() => {
-                          button.textContent = 'Copiar';
-                      }, 2000);
-                  })
-                  .catch(err => {
-                      console.error('Erro ao copiar:', err);
-                  });
+    // Script para copiar texto de cada botão com base em seu data-clipboard-text
+    document.querySelectorAll('.copiar').forEach(button => {
+      button.addEventListener('click', () => {
+        const textToCopy = button.getAttribute('data-clipboard-text');
+        
+        navigator.clipboard.writeText(textToCopy)
+          .then(() => {
+            button.textContent = 'Copiado!';
+            setTimeout(() => {
+              button.textContent = 'Copiar';
+            }, 2000);
+          })
+          .catch(err => {
+            console.error('Erro ao copiar:', err);
           });
       });
+    });
   </script>
 
   <footer>
-      <p>© 2025 - Guia Completo de Instalação do WSL2 e Configuração do Zsh</p>
+    <p>© 2025 - Guia Completo de Instalação do WSL2 e Configuração do Zsh</p>
   </footer>
 
 </body>
