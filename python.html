@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Instruções de Setup - Windows</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .comando {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+        }
+        .copiar {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        h2 { color: #333; }
+        .nota { color: #666; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>Instruções de Configuração (Windows)</h1>
+
+    <h2>1. Navegar até o diretório</h2>
+    <div class="comando">
+        cd C:\Users\Guilherme\Desktop\rdo
+        <button class="copiar" onclick="navigator.clipboard.writeText('cd C:\\Users\\Guilherme\\Desktop\\rdo')">Copiar</button>
+    </div>
+
+    <h2>2. Criar ambiente virtual</h2>
+    <div class="comando">
+        python -m venv venv
+        <button class="copiar" onclick="navigator.clipboard.writeText('python -m venv venv')">Copiar</button>
+    </div>
+
+    <h2>3. Ativar ambiente virtual</h2>
+    <div class="comando">
+        .\venv\Scripts\activate
+        <button class="copiar" onclick="navigator.clipboard.writeText('.\\venv\\Scripts\\activate')">Copiar</button>
+    </div>
+
+    <h2>4. Instalar dependências</h2>
+    <div class="comando">
+        pip install -r requirements.txt
+        <button class="copiar" onclick="navigator.clipboard.writeText('pip install -r requirements.txt')">Copiar</button>
+    </div>
+
+    <h2>5. Rodar aplicação</h2>
+    <div class="comando">
+        flask run
+        <button class="copiar" onclick="navigator.clipboard.writeText('flask run')">Copiar</button>
+    </div>
+
+    <h2>6. Desativar ambiente (ao terminar)</h2>
+    <div class="comando">
+        deactivate
+        <button class="copiar" onclick="navigator.clipboard.writeText('deactivate')">Copiar</button>
+    </div>
+
+    <div class="nota">
+        <p><strong>Notas importantes:</strong></p>
+        <ul>
+            <li>Certifique-se que o XAMPP está rodando</li>
+            <li>Acesse: http://localhost:5000</li>
+            <li>Para voltar a trabalhar depois, execute os passos 1 e 3</li>
+        </ul>
+    </div>
+
+    <script>
+        document.querySelectorAll('.copiar').forEach(button => {
+            button.addEventListener('click', () => {
+                button.textContent = 'Copiado!';
+                setTimeout(() => {
+                    button.textContent = 'Copiar';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
